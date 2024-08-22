@@ -21,7 +21,7 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email "email@example.com"
 ```
 
-![image-20240513164845262](imgFiles\image-20240513164845262.png)
+![image-20240513164845262](imgFiles/image-20240513164845262.png)
 
 ## 创建版本库
 
@@ -37,9 +37,9 @@ $ git config --global user.email "email@example.com"
 
 ## Github运行机制
 
-![image-20240513174808807](imgFiles\image-20240513174808807.png)
+![image-20240513174808807](imgFiles/image-20240513174808807.png)
 
-![image-20240513174917718](imgFiles\image-20240513174917718.png)
+![image-20240513174917718](imgFiles/image-20240513174917718.png)
 
 > 通过比对提交文件与本地文件的不同，记录每一次的提交更新
 >
@@ -49,11 +49,11 @@ $ git config --global user.email "email@example.com"
 
 ## 版本号
 
-![image-20240513174124031](imgFiles\image-20240513174124031.png)
+![image-20240513174124031](imgFiles/image-20240513174124031.png)
 
 > 可用于找到文件 .git -> objects -> 版本号前两位数字
 
-![image-20240513174413821](imgFiles\image-20240513174413821.png)
+![image-20240513174413821](imgFiles/image-20240513174413821.png)
 
 ## 多人协作-分支与合并
 
@@ -61,35 +61,35 @@ $ git config --global user.email "email@example.com"
 
 相当于生成了仓库的多个副本
 
-![image-20240527154235716](imgFiles\image-20240527154235716.png)
+![image-20240527154235716](imgFiles/image-20240527154235716.png)
 
 主分支：
 
-<img src="imgFiles\image-20240513181422583.png" alt="image-20240513181422583.png" style="zoom:33%;"> alt="image-20240513181422583" style="zoom: 25%;" />
+<img src="imgFiles/image-20240513181422583.png" alt="image-20240513181422583.png" style="zoom:33%;"> alt="image-20240513181422583.png" style="zoom:33%;"> alt="image-20240513181422583" style="zoom: 25%;" />
 
 其他副本分支 Recent branch：
 
-<img src="imgFiles\image-20240513181826430.png" alt="image-20240513181826430.png" style="zoom:33%;"> alt="image-20240513181826430" style="zoom:50%;" />
+<img src="imgFiles/image-20240513181826430.png" alt="image-20240513181826430.png" style="zoom:33%;"> alt="image-20240513181826430.png" style="zoom:33%;"> alt="image-20240513181826430" style="zoom:50%;" />
 
-![image-20240513182548095](imgFiles\image-20240513182548095.png)
+![image-20240513182548095](imgFiles/image-20240513182548095.png)
 
 ### 遇到冲突文件如何处理
 
-<img src="imgFiles\image-20240526195315357.png" alt="image-20240526195315357.png" style="zoom:33%;"> alt="image-20240526195315357" style="zoom:33%;" />
+<img src="imgFiles/image-20240526195315357.png" alt="image-20240526195315357.png" style="zoom:33%;"> alt="image-20240526195315357.png" style="zoom:33%;"> alt="image-20240526195315357" style="zoom:33%;" />
 
 具体打开后如下
 
-<img src="imgFiles\image-20240513183335822.png" alt="image-20240513183335822.png" style="zoom:33%;"> alt="image-20240513183335822" style="zoom: 33%;" />
+<img src="imgFiles/image-20240513183335822.png" alt="image-20240513183335822.png" style="zoom:33%;"> alt="image-20240513183335822.png" style="zoom:33%;"> alt="image-20240513183335822" style="zoom: 33%;" />
 
 当前分支同名文件内容为user,order分支同名内容为order，合并两个文件内容，则可以将齐修改成如下：
 
-<img src="imgFiles\image-20240513183419767.png" alt="image-20240513183419767.png" style="zoom:33%;"> alt="image-20240513183419767" style="zoom:33%;" />
+<img src="imgFiles/image-20240513183419767.png" alt="image-20240513183419767.png" style="zoom:33%;"> alt="image-20240513183419767.png" style="zoom:33%;"> alt="image-20240513183419767" style="zoom:33%;" />
 
 ## 创建标签
 
 右键单击
 
-<img src="imgFiles\image-20240513184028481.png" alt="image-20240513184028481.png" style="zoom:33%;"> alt="image-20240513184028481" style="zoom: 50%;" />
+<img src="imgFiles/image-20240513184028481.png" alt="image-20240513184028481.png" style="zoom:33%;"> alt="image-20240513184028481.png" style="zoom:33%;"> alt="image-20240513184028481" style="zoom: 50%;" />
 
 ## 远程仓库
 
@@ -97,49 +97,49 @@ $ git config --global user.email "email@example.com"
 
 1. 在网页端创建远程仓库
 
-![image-20240527160317079](imgFiles\image-20240527160317079.png)
+![image-20240527160317079](imgFiles/image-20240527160317079.png)
 
 2. 在桌面端克隆远程仓库
 
-![image-20240527160423931](imgFiles\image-20240527160423931.png)
+![image-20240527160423931](imgFiles/image-20240527160423931.png)
 
 3. 桌面端网页端同步更新
 
-![image-20240527160630046](imgFiles\image-20240527160630046.png)
+![image-20240527160630046](imgFiles/image-20240527160630046.png)
 
 ### 克隆Gitee远程仓库
 
-<img src="imgFiles\image-20240527161324600.png" alt="image-20240527161324600.png" style="zoom:33%;"> alt="image-20240527161324600" style="zoom: 33%;" />
+<img src="imgFiles/image-20240527161324600.png" alt="image-20240527161324600.png" style="zoom:33%;"> alt="image-20240527161324600.png" style="zoom:33%;"> alt="image-20240527161324600" style="zoom: 33%;" />
 
-<img src="imgFiles\image-20240527161405934.png" alt="image-20240527161405934.png" style="zoom:33%;"> alt="image-20240527161405934" style="zoom:33%;" />
+<img src="imgFiles/image-20240527161405934.png" alt="image-20240527161405934.png" style="zoom:33%;"> alt="image-20240527161405934.png" style="zoom:33%;"> alt="image-20240527161405934" style="zoom:33%;" />
 
 ## Ignore File
 
-<img src="imgFiles\image-20240527162539036.png" alt="image-20240527162539036.png" style="zoom:33%;"> alt="image-20240527162539036" style="zoom: 33%;" />
+<img src="imgFiles/image-20240527162539036.png" alt="image-20240527162539036.png" style="zoom:33%;"> alt="image-20240527162539036.png" style="zoom:33%;"> alt="image-20240527162539036" style="zoom: 33%;" />
 
 ## 通过图标判断文件操作
 
-![image-20240527164659741](imgFiles\image-20240527164659741.png)
+![image-20240527164659741](imgFiles/image-20240527164659741.png)
 
 ## `IDEA 集成 GitHub &  Gitee`
 
 1. 上传IDEA 中的project到github中(直接变成一个仓库)
 
-   <img src="imgFiles\image-20240527173224569.png" alt="image-20240527173224569.png" style="zoom:33%;"> alt="image-20240527173224569" style="zoom:33%;" />
+   <img src="imgFiles/image-20240527173224569.png" alt="image-20240527173224569.png" style="zoom:33%;"> alt="image-20240527173224569.png" style="zoom:33%;"> alt="image-20240527173224569" style="zoom:33%;" />
 
 2. 如何将IDEA中修改的本地文件提交到github中
 
-<img src="imgFiles\image-20240527171231538.png" alt="image-20240527171231538.png" style="zoom:33%;"> alt="image-20240527171231538" style="zoom:33%;" />
+<img src="imgFiles/image-20240527171231538.png" alt="image-20240527171231538.png" style="zoom:33%;"> alt="image-20240527171231538.png" style="zoom:33%;"> alt="image-20240527171231538" style="zoom:33%;" />
 
-3. 当在github中更新了文件，如何在IDEA中同步更新 <img src="imgFiles\image-20240527171751873.png" alt="image-20240527171751873.png" style="zoom:33%;"> alt="image-20240527171751873" style="zoom:33%;" />
+3. 当在github中更新了文件，如何在IDEA中同步更新 <img src="imgFiles/image-20240527171751873.png" alt="image-20240527171751873.png" style="zoom:33%;"> alt="image-20240527171751873.png" style="zoom:33%;"> alt="image-20240527171751873" style="zoom:33%;" />
 
 4. 克隆来自GitHub的项目
 
-   <img src="imgFiles\image-20240527173707455.png" alt="image-20240527173707455.png" style="zoom:33%;"> alt="image-20240527173707455" style="zoom:33%;" />
+   <img src="imgFiles/image-20240527173707455.png" alt="image-20240527173707455.png" style="zoom:33%;"> alt="image-20240527173707455.png" style="zoom:33%;"> alt="image-20240527173707455" style="zoom:33%;" />
 
 ## git基础指令
 
-<img src="imgFiles\image-20240527185224553.png" alt="image-20240527185224553.png" style="zoom:33%;"> alt="image-20240527185224553" style="zoom:33%;" />
+<img src="imgFiles/image-20240527185224553.png" alt="image-20240527185224553.png" style="zoom:33%;"> alt="image-20240527185224553.png" style="zoom:33%;"> alt="image-20240527185224553" style="zoom:33%;" />
 
 clone 、publish 用于对整个项目的操作
 
@@ -163,7 +163,7 @@ git init
 
 
 
-[仓库Http链接 ]: imgFiles\remote-gitee-test.git
+[仓库Http链接 ]: imgFiles/remote-gitee-test.git
 
 ### configure
 
@@ -178,16 +178,20 @@ git config --global user.email 3332522674@qq.com
 
 在github中同样可以修改
 
-<img src="imgFiles\image-20240527193610901.png" alt="image-20240527193610901.png" style="zoom:33%;"> alt="image-20240527193610901" style="zoom: 33%;" />
+<img src="imgFiles/image-20240527193610901.png" alt="image-20240527193610901.png" style="zoom:33%;"> alt="image-20240527193610901.png" style="zoom:33%;"> alt="image-20240527193610901" style="zoom: 33%;" />
 
 ### git status
 
 添加文件b.txt前后变化
 
-<img src="imgFiles\image-20240527194250052.png" alt="image-20240527194250052.png" style="zoom:33%;"> alt="image-20240527194250052" style="zoom: 50%;" />
+<img src="imgFiles/image-20240527194250052.png" alt="image-20240527194250052.png" style="zoom:33%;"> alt="image-20240527194250052.png" style="zoom:33%;"> alt="image-20240527194250052" style="zoom: 50%;" />
 
 ### git add  & git commit
 
-<img src="imgFiles\image-20240527194428950.png" alt="image-20240527194428950.png" style="zoom:33%;"> alt="image-20240527194428950" style="zoom:50%;" />
+<img src="imgFiles/image-20240527194428950.png" alt="image-20240527194428950.png" style="zoom:33%;"> alt="image-20240527194428950.png" style="zoom:33%;"> alt="image-20240527194428950" style="zoom:50%;" />
 
 -m 指的是注解这次操作的意图
+
+ 如何将本地文件提交到已创建的github仓库上？
+
+将远程仓库克隆到本地 然后复制文件到该仓库地址 最后commit

@@ -2,7 +2,7 @@
 
 AJAX是浏览器与服务器进行数据通信的技术
 
-![image-20240801170047274](imgFiles\image-20240801170047274.png)
+![image-20240801170047274](imgFiles/image-20240801170047274.png)
 
 >  ==为什么渲染函数不能写在axios外部？==
 >
@@ -41,7 +41,7 @@ AJAX是浏览器与服务器进行数据通信的技术
 
 uniform resource locator 统一资源定义符
 
-![image-20240801171431617](imgFiles\image-20240801171431617.png)
+![image-20240801171431617](imgFiles/image-20240801171431617.png)
 
 ==http协议==：超文本传输协议，规定浏览器和服务器之间**数据传输的格式**
 
@@ -68,7 +68,7 @@ axios({
 }).then(result => {})
 ```
 
-![image-20240801182259557](imgFiles\image-20240801182259557.png)
+![image-20240801182259557](imgFiles/image-20240801182259557.png)
 
 
 
@@ -239,11 +239,11 @@ HTTP协议：规定了浏览器发送及服务器返回内容的样式
 > 3. 空行：分隔请求头，空行之后的是发送给服务器的资源
 > 4. 请求体：发送的资源
 >
-> ![image-20240802150525687](imgFiles\image-20240802150525687.png)
+> ![image-20240802150525687](imgFiles/image-20240802150525687.png)
 
 请求报文的作用：**用于核查错误**(看提交的是否正确)
 
-![image-20240801192904401](imgFiles\image-20240801192904401.png)
+![image-20240801192904401](imgFiles/image-20240801192904401.png)
 
 ## 响应报文
 
@@ -256,7 +256,7 @@ HTTP 协议：规定了浏览器发送及服务器返回内容的格式
 > 3. 空行：分隔响应头，空行之后的是服务器返回的资源
 > 4. 响应体：返回的资源
 >
-> <img src="imgFiles\image-20240801193908266.png" alt="image-20240801193908266.png" style="zoom:33%;"> alt="image-20240801193908266" style="zoom: 33%;" />
+> <img src="imgFiles/image-20240801193908266.png" alt="image-20240801193908266.png" style="zoom:33%;"> alt="image-20240801193908266.png" style="zoom:33%;"> alt="image-20240801193908266" style="zoom: 33%;" />
 
 ### HTTP响应状态码
 
@@ -283,13 +283,13 @@ HTTP 协议：规定了浏览器发送及服务器返回内容的格式
 >
 >   }
 >
-> <img src="imgFiles\image-20240802162557409.png" alt="image-20240802162557409.png" style="zoom:33%;"> alt="image-20240802162557409" style="zoom: 50%;" />
+> <img src="imgFiles/image-20240802162557409.png" alt="image-20240802162557409.png" style="zoom:33%;"> alt="image-20240802162557409.png" style="zoom:33%;"> alt="image-20240802162557409" style="zoom: 50%;" />
 >
 > - body参数 data {
 >
 >   }
 >
-> <img src="imgFiles\image-20240802162612700.png" alt="image-20240802162612700.png" style="zoom:33%;"> alt="image-20240802162612700" style="zoom:50%;" />
+> <img src="imgFiles/image-20240802162612700.png" alt="image-20240802162612700.png" style="zoom:33%;"> alt="image-20240802162612700.png" style="zoom:33%;"> alt="image-20240802162612700" style="zoom:50%;" />
 
 ## form-serialize插件
 
@@ -348,7 +348,7 @@ const formInfo = serialize(form, {hash:ture, empty: true})
 
 通过自定义属性 控制弹框的显示和隐藏
 
-<img src="imgFiles\image-20240802193103210.png" alt="image-20240802193103210.png" style="zoom:33%;"> alt="image-20240802193103210" style="zoom:50%;" />
+<img src="imgFiles/image-20240802193103210.png" alt="image-20240802193103210.png" style="zoom:33%;"> alt="image-20240802193103210.png" style="zoom:33%;"> alt="image-20240802193103210" style="zoom:50%;" />
 
 1. 绑定实现显示弹框
 
@@ -362,7 +362,7 @@ const formInfo = serialize(form, {hash:ture, empty: true})
 
 ​	   data-bs-dismiss = "modal"
 
-<img src="imgFiles\image-20240802193233012.png" alt="image-20240802193233012.png" style="zoom:33%;"> alt="image-20240802193233012" style="zoom: 50%;" />
+<img src="imgFiles/image-20240802193233012.png" alt="image-20240802193233012.png" style="zoom:33%;"> alt="image-20240802193233012.png" style="zoom:33%;"> alt="image-20240802193233012" style="zoom: 50%;" />
 
 ### js控制
 
@@ -395,7 +395,7 @@ const formInfo = serialize(form, {hash:ture, empty: true})
 
 2. 利用`FormData()`携带图片文件，`e.target.files` 为文件列表
 
-3. ![image-20240806183037227](imgFiles\image-20240806183037227.png)
+3. ![image-20240806183037227](imgFiles/image-20240806183037227.png)
 
    ```js
    const 对象名 = new FormData();
@@ -501,7 +501,7 @@ xhr.open("GET", `url...?${querytString}`)
 
 > 需要自己**写请求头**并将请求体**手动转变为JSON**字符串,然后send(JSON字符串)
 >
-> <img src="imgFiles\image-20240805140741173.png" alt="image-20240805140741173.png" style="zoom:33%;"> alt="image-20240805140741173" style="zoom:33%;" />
+> <img src="imgFiles/image-20240805140741173.png" alt="image-20240805140741173.png" style="zoom:33%;"> alt="image-20240805140741173.png" style="zoom:33%;"> alt="image-20240805140741173" style="zoom:33%;" />
 >
 > ```js
 > const xhr = new XMLHttpRequest()
@@ -764,7 +764,7 @@ xhr.open("GET", `url...?${querytString}`)
 
 在最外层捕获异常 无法真正捕获最内层的错误
 
-![image-20240808152546470](imgFiles\image-20240808152546470.png)
+![image-20240808152546470](imgFiles/image-20240808152546470.png)
 
 ## Promise链式调用
 

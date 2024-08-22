@@ -1,6 +1,6 @@
 ## JS的组成
 
-![image-20240705121948671](imgFiles\image-20240705121948671.png)
+![image-20240705121948671](imgFiles/image-20240705121948671.png)
 
 JavaScript：
 
@@ -82,7 +82,7 @@ console.log("anything");	//控制台输出
 >
 > 此时开辟了一个新数组，地址改变，所以会报错
 >
-> ![image-20240707173530023](imgFiles\image-20240707173530023.png)
+> ![image-20240707173530023](imgFiles/image-20240707173530023.png)
 >
 > ```JavaScript
 > //1
@@ -184,7 +184,7 @@ if (error?.response?.status === 401) {}
 
 ### 位运算符
 
-<img src="imgFiles\image-20240726192314055.png" alt="image-20240726192314055.png" style="zoom:33%;"> alt="image-20240726192314055" style="zoom: 50%;" />
+<img src="imgFiles/image-20240726192314055.png" alt="image-20240726192314055.png" style="zoom:33%;"> alt="image-20240726192314055.png" style="zoom:33%;"> alt="image-20240726192314055" style="zoom: 50%;" />
 
 ### 逗号运算符
 
@@ -1135,7 +1135,7 @@ arguments实际上是当前函数的一个内置对象，所以函数都内置�
   fn(1, 2, 3);
 ```
 
-<img src="imgFiles\image-20240629120234651.png" alt="image-20240629120234651.png" style="zoom:33%;"> alt="image-20240629120234651" style="zoom:50%;" />
+<img src="imgFiles/image-20240629120234651.png" alt="image-20240629120234651.png" style="zoom:33%;"> alt="image-20240629120234651.png" style="zoom:33%;"> alt="image-20240629120234651" style="zoom:50%;" />
 
 ### `自调用函数`
 
@@ -1187,7 +1187,7 @@ console.log(num);
 
 内部函数访问外部函数的变量，采取的是链式查找的方式来决定取哪个值（就近原则输出）
 
-![image-20240629121556201](imgFiles\image-20240629121556201.png)
+![image-20240629121556201](imgFiles/image-20240629121556201.png)
 
 ```JavaScript
   function f1() {
@@ -1464,7 +1464,7 @@ JavaScript中的对象分为三种：自定义对象、内置对象、浏览器�
 
 内置对象就是JS语言自带的一些对象，提供了一些常用的或是最基本而必要的功能
 
-![image-20240629155828944](imgFiles\image-20240629155828944.png)
+![image-20240629155828944](imgFiles/image-20240629155828944.png)
 
 ### **Object 静态方法**
 
@@ -1695,7 +1695,7 @@ console.log(paramsObj);
 
 ## [对象数组](https://www.freecodecamp.org/chinese/news/javascript-array-of-objects-tutorial-how-to-create-update-and-loop-through-objects-using-js-array-methods/)
 
-![image-20240709110409859](imgFiles\image-20240709110409859.png)
+![image-20240709110409859](imgFiles/image-20240709110409859.png)
 
 我们可以将它们写成这样的数组：
 
@@ -1851,7 +1851,7 @@ console.log(str.length); //-> 4
 
 值类型变量的数据直接存放在变量（**栈空间**）中
 
-![图片.png](imgFiles\0518c48d76d643a89833871053857221tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp)
+![图片.png](imgFiles/0518c48d76d643a89833871053857221tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp)
 
 #### 复杂数据类型的内存分配
 
@@ -1859,7 +1859,7 @@ console.log(str.length); //-> 4
 
 **引用类型变量（栈空间）** 里存放的是地址，真正的对象实例存放在**堆空间**中
 
-![图片.png](imgFiles\243be3a69d2e432a892f2b41e3007676tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp)
+![图片.png](imgFiles/243be3a69d2e432a892f2b41e3007676tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp)
 
 ### 可变性和不可变性
 
@@ -1899,8 +1899,8 @@ null
 
 #### typeof
 
-![image-20240726180706588](imgFiles\image-20240726180706588.png)
+![image-20240726180706588](imgFiles/image-20240726180706588.png)
 
 #### == & ===
 
-![image-20240726180717087](imgFiles\image-20240726180717087.png)
+![image-20240726180717087](imgFiles/image-20240726180717087.png)

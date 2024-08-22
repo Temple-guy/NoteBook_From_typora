@@ -163,11 +163,11 @@ Using image sprites will reduce the number of server requests and save bandwidth
 
 ```
 
-![image-20240707150112736](imgFiles\image-20240707150112736.png)原精灵图
+![image-20240707150112736](imgFiles/image-20240707150112736.png)原精灵图
 
 最终变成
 
-![image-20240707150129764](imgFiles\image-20240707150129764.png)
+![image-20240707150129764](imgFiles/image-20240707150129764.png)
 
 ## Block and Inline Elements
 
@@ -275,7 +275,7 @@ width: 50%;
 The element will will generally move away from a given side when its value is positive, and towards it when the value is negative. In the example below, a positive length for `top` moves the element down (away from the top) and a negative length for `top` will move the element up (towards the top):
 当元素的值为正时，元素通常会远离给定的一侧，而当值为负时，元素将向给定的一侧移动。在下面的示例中，`top` 的正长度将元素向下移动（远离顶部），`top` 的负长度将元素向上移动（朝向顶部）：
 
-![image-20240707154250267](imgFiles\image-20240707154250267.png)
+![image-20240707154250267](imgFiles/image-20240707154250267.png)
 
 ## 伪类和伪元素
 
@@ -295,13 +295,13 @@ The element will will generally move away from a given side when its value is po
   - 伪类的操作对象是文档树中已有的元素
   - 而伪元素则创建了一个文档数外的元素
 
-![img](imgFiles\04-01.png)
+![img](imgFiles/04-01.png)
 
 ## pseudo-selector伪选择器
 
 ### [：nth-child](https://css-tricks.com/how-nth-child-works/)
 
-![image-20240708111907742](imgFiles\image-20240708111907742.png)
+![image-20240708111907742](imgFiles/image-20240708111907742.png)
 
 ```css
 li:nth-child(5) {
@@ -336,17 +336,17 @@ etc.
 etc.
 ```
 
-![image-20240708111847084](imgFiles\image-20240708111847084.png)
+![image-20240708111847084](imgFiles/image-20240708111847084.png)
 
-![image-20240708111756305](imgFiles\image-20240708111756305.png)
+![image-20240708111756305](imgFiles/image-20240708111756305.png)
 
 #### Select Only Odd or Even
 
-![image-20240708112042563](imgFiles\image-20240708112042563.png)
+![image-20240708112042563](imgFiles/image-20240708112042563.png)
 
 #### Select the Second to Last Element
 
-![image-20240708112117473](imgFiles\image-20240708112117473.png)
+![image-20240708112117473](imgFiles/image-20240708112117473.png)
 
 ## [Template Literals](https://css-tricks.com/template-literals/)模版字符串
 

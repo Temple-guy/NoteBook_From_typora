@@ -20,7 +20,7 @@
 
 ### HTML DOM Tree
 
-![DOM HTML tree](imgFiles\pic_htmltree.gif)
+![DOM HTML tree](imgFiles/pic_htmltree.gif)
 
 **文档**：一个页面就是一个文档，DOM中使用document表示
 
@@ -209,7 +209,7 @@ var boxs = document.getElementsByClassName("box");
 2. 注册事件(绑定事件)
 3. 添加事件处理程序(采取函数赋值形式)
 
-![image-20240705144313237](imgFiles\image-20240705144313237.png)
+![image-20240705144313237](imgFiles/image-20240705144313237.png)
 
 ```html
     <div>123</div>
@@ -283,7 +283,7 @@ JavaScript的DOM操作可以改变网页内容、结构和样式，我们可以�
 ```html
     <button id="1">1</button>
     <button id="2">2</button>
-    <img src="imgFiles\1.jpg" alt="1.jpg" style="zoom:33%;"> alt="" />
+    <img src="imgFiles/1.jpg" alt="1.jpg" style="zoom:33%;"> alt="1.jpg" style="zoom:33%;"> alt="" />
     <script>
       var btn1 = document.getElementById("1");
       var btn2 = document.getElementById("2");
@@ -297,7 +297,7 @@ JavaScript的DOM操作可以改变网页内容、结构和样式，我们可以�
     </script>
 ```
 
-![image-20240707150112736](imgFiles\image-20240707150112736.png)原精灵图
+![image-20240707150112736](imgFiles/image-20240707150112736.png)原精灵图
 
 > [!Note]
 >
@@ -357,7 +357,7 @@ JavaScript的DOM操作可以改变网页内容、结构和样式，我们可以�
   <body>
     <div class="box">
       <label for="">
-        <img src="imgFiles\close.png" alt="close.png" style="zoom:33%;"> alt="" id="eye" />
+        <img src="imgFiles/close.png" alt="close.png" style="zoom:33%;"> alt="close.png" style="zoom:33%;"> alt="" id="eye" />
       </label>
       <input type="password" name="" id="pwd" />
     </div>
@@ -464,7 +464,7 @@ JavaScript的DOM操作可以改变网页内容、结构和样式，我们可以�
   </head>
   <body>
     <div class="box">
-      <img src="imgFiles\1.jpg" alt="1.jpg" style="zoom:33%;"> alt="" />
+      <img src="imgFiles/1.jpg" alt="1.jpg" style="zoom:33%;"> alt="1.jpg" style="zoom:33%;"> alt="" />
       <i class="close-btn">x</i>
     </div>
     <script>
@@ -622,7 +622,7 @@ data-开头的自定义属性，以element.dataset的方式获取对象、
 
 dataset的返回值为对象，其中每一个data- 都为他的属性
 
-![image-20240708150226738](imgFiles\image-20240708150226738.png)
+![image-20240708150226738](imgFiles/image-20240708150226738.png)
 
 data-id 搭配for循环使用
 
@@ -785,7 +785,7 @@ DOM L2 事件源.addEventListener(事件， 事件处理函数)
 
 ## 事件类型
 
-![image-20240708191417264](imgFiles\image-20240708191417264.png)
+![image-20240708191417264](imgFiles/image-20240708191417264.png)
 
 ### 鼠标事件
 
@@ -873,11 +873,11 @@ form.addEventListener('submit', (event) => {
 >
 > 注意只有在addEventListener中 第一个参数才会为事件对象 其他的情况就是普通的形参
 
-![image-20240709113617098](imgFiles\image-20240709113617098.png)
+![image-20240709113617098](imgFiles/image-20240709113617098.png)
 
 ### 事件对象常见属性
 
-![image-20240709114018033](imgFiles\image-20240709114018033.png)
+![image-20240709114018033](imgFiles/image-20240709114018033.png)
 
 **key属性的使用**
 
@@ -903,7 +903,7 @@ form.addEventListener('submit', (event) => {
 
 当一个**函数当做参数**来传递给另外一个函数的时候，这个函数就是回调函数
 
-![image-20240709160205859](imgFiles\image-20240709160205859.png)
+![image-20240709160205859](imgFiles/image-20240709160205859.png)
 
 这左右两个都是回调函数
 
@@ -911,7 +911,7 @@ form.addEventListener('submit', (event) => {
 
 **事件流指的是事件完整执行过程中的流动路径**
 
-![DOM事件流](imgFiles\event-flow.3ce49e4d.png)
+![DOM事件流](imgFiles/event-flow.3ce49e4d.png)
 
 > 说明：假设页面里有个div，当触发事件时，会经历两个阶段，分别是捕获阶段、冒泡阶段l
 
@@ -988,7 +988,7 @@ form.addEventListener('submit', (event) => {
 
 当一个元素的事件被触发时，同样的事件将会在该元素的所有祖先元素中依次被触发。这一过程被称为事件冒泡
 
-![image-20240711155700622](imgFiles\image-20240711155700622.png)
+![image-20240711155700622](imgFiles/image-20240711155700622.png)
 
 > 案例：点击son,会在弹出son后，紧接着弹出father
 >
@@ -1070,7 +1070,7 @@ form.addEventListener('submit', (event) => {
 事件对象.preventDefault()
 ```
 
-![image-20240711160312960](imgFiles\image-20240711160312960.png)
+![image-20240711160312960](imgFiles/image-20240711160312960.png)
 
 ### 解绑事件
 
@@ -1132,7 +1132,7 @@ mouseenter和mouseleave没有冒泡效果（推荐）
 
 ### `两种注册事件的区别`
 
-![image-20240711161438791](imgFiles\image-20240711161438791.png)
+![image-20240711161438791](imgFiles/image-20240711161438791.png)
 
 ## 事件委托
 
@@ -1189,7 +1189,7 @@ mouseenter和mouseleave没有冒泡效果（推荐）
 
 #### load
 
-![image-20240711164651810](imgFiles\image-20240711164651810.png)
+![image-20240711164651810](imgFiles/image-20240711164651810.png)
 
 **监听页面所有资源加载完毕**
 
@@ -1226,7 +1226,7 @@ window.addEventListener("load", function () {}
   </head>
   <body>
     <button>click</button>
-    <img src="imgFiles\avatar.jpg" alt="avatar.jpg" style="zoom:33%;"> alt="" />
+    <img src="imgFiles/avatar.jpg" alt="avatar.jpg" style="zoom:33%;"> alt="avatar.jpg" style="zoom:33%;"> alt="" />
   </body>
 </html>
 ```
@@ -1262,13 +1262,13 @@ window.addEventListener("load", function () {}
 window.addEventListener("scroll", function () {});
 ```
 
-![image-20240711165406448](imgFiles\image-20240711165406448.png)
+![image-20240711165406448](imgFiles/image-20240711165406448.png)
 
-![image-20240711173203683](imgFiles\image-20240711173203683.png)
+![image-20240711173203683](imgFiles/image-20240711173203683.png)
 
-![image-20240711165432230](imgFiles\image-20240711165432230.png)
+![image-20240711165432230](imgFiles/image-20240711165432230.png)
 
-![image-20240711165449829](imgFiles\image-20240711165449829.png)
+![image-20240711165449829](imgFiles/image-20240711165449829.png)
 
 **检测页面滚动的头部距离（被卷去的头部）用那个属性？**
 
@@ -1437,7 +1437,7 @@ window.addEventListener("resize", function () {
       <div class="sk">秒杀模块</div>
     </div>
     <div class="backtop">
-      <img src="imgFiles\close2.png" alt="close2.png" style="zoom:33%;"> alt="" />
+      <img src="imgFiles/close2.png" alt="close2.png" style="zoom:33%;"> alt="close2.png" style="zoom:33%;"> alt="" />
       <a href="javascript:;"></a>
     </div>
     <script>
@@ -1663,7 +1663,7 @@ window.addEventListener("resize", function () {
   <body>
     <div class="slider">
       <div class="slider-wrapper">
-        <img src="imgFiles\slider01.jpg" alt="slider01.jpg" style="zoom:33%;"> alt="" />
+        <img src="imgFiles/slider01.jpg" alt="slider01.jpg" style="zoom:33%;"> alt="slider01.jpg" style="zoom:33%;"> alt="" />
       </div>
       <div class="slider-footer">
         <p>对人类来说会不会太超前了？</p>
@@ -1863,9 +1863,9 @@ window.addEventListener("resize", function () {
 
 1. 点击文本框实现显示字数实时统计
 
-   ![image-20240711145528585](imgFiles\image-20240711145528585.png)
+   ![image-20240711145528585](imgFiles/image-20240711145528585.png)
 
-   ![image-20240711145542164](imgFiles\image-20240711145542164.png)
+   ![image-20240711145542164](imgFiles/image-20240711145542164.png)
 
    ```html
        <script>
@@ -1925,7 +1925,7 @@ window.addEventListener("resize", function () {
 
 1. 法一：利用循环的方式绑定
 
-   ![image-20240711152601967](imgFiles\image-20240711152601967.png)
+   ![image-20240711152601967](imgFiles/image-20240711152601967.png)
 
    ```html
        <script>
@@ -2278,11 +2278,11 @@ window.addEventListener("resize", function () {
 console.log(e.target.dataset);
 ```
 
-![image-20240711185724124](imgFiles\image-20240711185724124.png)
+![image-20240711185724124](imgFiles/image-20240711185724124.png)
 
 
 
-<img src="imgFiles\image-20240711190012729.png" alt="image-20240711190012729.png" style="zoom:33%;"> alt="image-20240711190012729" style="zoom:150%;" />
+<img src="imgFiles/image-20240711190012729.png" alt="image-20240711190012729.png" style="zoom:33%;"> alt="image-20240711190012729.png" style="zoom:33%;"> alt="image-20240711190012729" style="zoom:150%;" />
 
 ```javascript
 //利用蒙版字符串获取对应的类名
@@ -2442,7 +2442,7 @@ document.documentElement.scrollTop = activeBox.offsetTop;
   <body>
     <div class="list">
       <!-- <div class="item">
-      <img src="imgFiles\84a59ff9c58a77032564e61f716846d6.jpg" alt="84a59ff9c58a77032564e61f716846d6.jpg" style="zoom:33%;"> alt="">
+      <img src="imgFiles/84a59ff9c58a77032564e61f716846d6.jpg" alt="84a59ff9c58a77032564e61f716846d6.jpg" style="zoom:33%;"> alt="84a59ff9c58a77032564e61f716846d6.jpg" style="zoom:33%;"> alt="">
       <p class="name">称心如意手摇咖啡磨豆机咖啡豆研磨机 <span class="tag">【赠品】10优惠券</span></p>
       <p class="spec">白色/10寸</p>
       <p class="price">289.90</p>
@@ -2949,7 +2949,7 @@ touch 对象代表一个触摸点。触摸点可能是一根手指，也可能�
 
 **BOM**(Browser Object Model ) 是浏览器对象模型
 
-![img](imgFiles\0Z97n-GUQNGHUtMXZ.png)
+![img](imgFiles/0Z97n-GUQNGHUtMXZ.png)
 
 - **window对象**是一个全局对象，也可以说是JavaScript中的顶级对象
 - 像document、alert()、console.log()这些都是window的属性，基本BOM的属性和方法都是window的。
@@ -2960,7 +2960,7 @@ touch 对象代表一个触摸点。触摸点可能是一根手指，也可能�
 
 ### location对象
 
-![image-20240721131457100](imgFiles\image-20240721131457100.png)
+![image-20240721131457100](imgFiles/image-20240721131457100.png)
 
 ```js
 // 得到当前文件url地址
@@ -3003,7 +3003,7 @@ loacation.reload(true)
 
 history 的数据类型是对象，主要管理历史记录， 该对象与浏览器地址栏的操作相对应，如前进、后退、历史记录等。
 
-![image-20240721132822842](imgFiles\image-20240721132822842.png)
+![image-20240721132822842](imgFiles/image-20240721132822842.png)
 
 ## [DOMTokenList](https://developer.mozilla.org/zh-CN/docs/Web/API/DOMTokenList)
 
@@ -3020,7 +3020,7 @@ history 的数据类型是对象，主要管理历史记录， 该对象与浏�
 
 定义了方法 `contains()`、`add()`、`remove()` 和 `toggle()` 方法
 
-![image-20240803142209820](imgFiles\image-20240803142209820.png)
+![image-20240803142209820](imgFiles/image-20240803142209820.png)
 
 **`Element.classList`** 是一个只读属性，返回一个元素 `class` 属性的动态 [`DOMTokenList`](https://developer.mozilla.org/zh-CN/docs/Web/API/DOMTokenList) 集合。这可以用于操作 class 集合。
 
@@ -3046,7 +3046,7 @@ localStorage.getItem("key");
 localStorage.removeItem("key");
 ```
 
-![image-20240713165658593](imgFiles\image-20240713165658593.png)
+![image-20240713165658593](imgFiles/image-20240713165658593.png)
 
 ### sessionStorage
 
@@ -3127,7 +3127,7 @@ const 变量名 = /表达式/
 
 2. 量词：用来设定某个模式出现的次数（逗号左右两侧千万不要出现空格）
 
-   ![image-20240721142155383](imgFiles\image-20240721142155383.png)
+   ![image-20240721142155383](imgFiles/image-20240721142155383.png)
 
 3. 字符类：
 

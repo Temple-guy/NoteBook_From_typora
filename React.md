@@ -95,7 +95,7 @@ React 18之后：允许有多个root
 
 
 
-![image-20240812161216571](imgFiles\image-20240812161216571.png)
+![image-20240812161216571](imgFiles/image-20240812161216571.png)
 
 ## 函数式组件
 
@@ -258,7 +258,7 @@ JSX是JavaScript和XML的缩写 ，表四JS代码中编写HTML模版结构，它
 
 JSX并不是标准的JS语法，它是JS的语法扩展，浏览器本身不能识别，需要通过解析工具做解析之后才能在浏览器中运行
 
-![image-20240808192431865](imgFiles\image-20240808192431865.png)
+![image-20240808192431865](imgFiles/image-20240808192431865.png)
 
 ## 语法
 
@@ -631,7 +631,7 @@ render() {
 
 ## 综合案例
 
-![image-20240814144711195](imgFiles\image-20240814144711195.png)
+![image-20240814144711195](imgFiles/image-20240814144711195.png)
 
 > Tips:
 >
@@ -816,7 +816,7 @@ render() {
 
 我们通过React.createElement 最终创建出来一个ReactElement对象
 
-![image-20240813174716160](imgFiles\image-20240813174716160.png)
+![image-20240813174716160](imgFiles/image-20240813174716160.png)
 
 > 这个对象有什么作用？React为什么要创建它？
 >
@@ -834,7 +834,7 @@ React官方的说法：Virtual DOM是一种编程理念。
 
 # 前端脚手架
 
-![image-20240813201107575](imgFiles\image-20240813201107575.png)
+![image-20240813201107575](imgFiles/image-20240813201107575.png)
 
 通过脚手架创建字母的项目名不能有大写字母
 
@@ -851,7 +851,7 @@ yarn start
 
 命令在哪查找
 
-![image-20240813203558281](imgFiles\image-20240813203558281.png)
+![image-20240813203558281](imgFiles/image-20240813203558281.png)
 
 ## 目录结构分析 
 
@@ -867,9 +867,9 @@ package-lock.json: 真实配置 具体版本
 
 PWA 可以实现把网页添加为桌面图标的功能
 
-![image-20240813204939396](imgFiles\image-20240813204939396.png)
+![image-20240813204939396](imgFiles/image-20240813204939396.png)
 
-![image-20240813204028398](imgFiles\image-20240813204028398.png)
+![image-20240813204028398](imgFiles/image-20240813204028398.png)
 
 ## 编写react文件
 
@@ -878,7 +878,7 @@ PWA 可以实现把网页添加为桌面图标的功能
 
 在Component文件夹下编写一个HelloWorld文件
 
-<img src="imgFiles\image-20240814152013755.png" alt="image-20240814152013755.png" style="zoom:33%;"> alt="image-20240814152013755" style="zoom:33%;" />
+<img src="imgFiles/image-20240814152013755.png" alt="image-20240814152013755.png" style="zoom:33%;"> alt="image-20240814152013755.png" style="zoom:33%;"> alt="image-20240814152013755" style="zoom:33%;" />
 
 ```javascript
 import React from "react";
@@ -926,7 +926,7 @@ export default App; // 导出
 
 # 组件化开发
 
-![image-20240814152633167](imgFiles\image-20240814152633167.png)
+![image-20240814152633167](imgFiles/image-20240814152633167.png)
 
 ## 分类
 
@@ -1001,7 +1001,7 @@ export default App;
 
 
 
-![React Lifecycle Methods Diagram](imgFiles\react-lifecycle-methods-diagram.ae211f59.jpg)
+![React Lifecycle Methods Diagram](imgFiles/react-lifecycle-methods-diagram.ae211f59.jpg)
 
 ### Constructor
 
@@ -1151,7 +1151,7 @@ export class MainBanner extends Component {
 }
 ```
 
-![image-20240815145546602](imgFiles\image-20240815145546602.png)
+![image-20240815145546602](imgFiles/image-20240815145546602.png)
 
 ## 子传父
 
@@ -1223,7 +1223,7 @@ export class AddCounter extends Component {
 
 ```
 
-![image-20240815150241587](imgFiles\image-20240815150241587.png)
+![image-20240815150241587](imgFiles/image-20240815150241587.png)
 
 ## propTypes
 
@@ -1237,7 +1237,7 @@ MainBanner.propTypes = {
 
 # 组件的嵌套
 
-![image-20240814174737322](imgFiles\image-20240814174737322.png)
+![image-20240814174737322](imgFiles/image-20240814174737322.png)
 
 # React"插槽"
 
@@ -1249,7 +1249,7 @@ Reacti对于这种需要插槽的情况非常灵活，有两种方案可以实�
 
    ==注意==：如果传入的children只有一个 那就是children元素 不是数组
 
-   <img src="imgFiles\image-20240815162449204.png" alt="image-20240815162449204.png" style="zoom:33%;"> alt="image-20240815162449204" style="zoom:25%;" />
+   <img src="imgFiles/image-20240815162449204.png" alt="image-20240815162449204.png" style="zoom:33%;"> alt="image-20240815162449204.png" style="zoom:33%;"> alt="image-20240815162449204" style="zoom:25%;" />
 
    ```javascript
    // 父组件
@@ -1477,7 +1477,7 @@ React 通过`浅比较`来比较旧的和新的 prop：也就是说，它会考�
 
 > 关于引用数据类型的存储方式： `栈空间存储的是堆空间的地址，堆空间才是存储本身的“内容”`
 >
-> <img src="imgFiles\9f324cc4f1334f79a6ad628d78ed4655tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="9f324cc4f1334f79a6ad628d78ed4655tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" style="zoom:33%;"> alt="Snipaste_2022-03-24_11-58-58.png" style="zoom:67%;" />
+> <img src="imgFiles/9f324cc4f1334f79a6ad628d78ed4655tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" alt="9f324cc4f1334f79a6ad628d78ed4655tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" style="zoom:33%;"> alt="9f324cc4f1334f79a6ad628d78ed4655tplv-k3u1fbpfcp-zoom-in-crop-mark1512000.webp" style="zoom:33%;"> alt="Snipaste_2022-03-24_11-58-58.png" style="zoom:67%;" />
 
 ## 引用类型数据修改方式
 
@@ -1577,7 +1577,7 @@ increment() {
 
 ## React更新机制
 
-![image-20240815210937884](imgFiles\image-20240815210937884.png)
+![image-20240815210937884](imgFiles/image-20240815210937884.png)
 
 ## 渲染细节
 
@@ -1585,7 +1585,7 @@ increment() {
 - 不同类型的节点，产生不同的树结构；
 - 开发中，可以通过key来指定哪些节点在不同的渲染下保持稳定：
 
-![image-20240816191151326](imgFiles\image-20240816191151326.png)
+![image-20240816191151326](imgFiles/image-20240816191151326.png)
 
 ## key属性的作用
 
@@ -1769,7 +1769,7 @@ getDom() {
 
 > 在React中，HTML表单的处理方式和普通的DOM元素不太一样：`表单元素`通常会保存在一些内部的state。表单元素一旦`绑定value属性` 组件立刻由`非受控组件变为受控组件 `**必须要绑定onChange事件**才能对表单元素进行操控
 
-![image-20240817183627297](imgFiles\image-20240817183627297.png)
+![image-20240817183627297](imgFiles/image-20240817183627297.png)
 
 ## input
 
@@ -2334,7 +2334,7 @@ Redux要求我们通过action来更新数据
 │   └── constants.js  
 ```
 
-<img src="imgFiles\image-20240818141605357.png" alt="image-20240818141605357.png" style="zoom:33%;"> alt="image-20240818141605357" style="zoom: 50%;" />
+<img src="imgFiles/image-20240818141605357.png" alt="image-20240818141605357.png" style="zoom:33%;"> alt="image-20240818141605357.png" style="zoom:33%;"> alt="image-20240818141605357" style="zoom: 50%;" />
 
 1. #### index.js
 
@@ -2401,7 +2401,7 @@ Redux要求我们通过action来更新数据
    });
    ```
 
-![image-20240818165814554](imgFiles\image-20240818165814554.png)
+![image-20240818165814554](imgFiles/image-20240818165814554.png)
 
 ## 获取最新的state
 
@@ -2578,7 +2578,7 @@ export default connect(mapStateToProps, mapdispatchToProps)(About);
 
 ### 异步请求
 
-![image-20240819130236638](imgFiles\image-20240819130236638.png)
+![image-20240819130236638](imgFiles/image-20240819130236638.png)
 
 ```javascript
   componentDidMount() {
@@ -2633,7 +2633,7 @@ function reducer(state = initalState, action) {
 
 #### 将网络请求放入redux中
 
-![image-20240819130706400](imgFiles\image-20240819130706400.png)
+![image-20240819130706400](imgFiles/image-20240819130706400.png)
 
 > 需要引入 redux-thunk 、applyMiddleware
 
@@ -2697,7 +2697,7 @@ export const fetchHomeMultidateAction = () => {
 };
 ```
 
-![image-20240819153043737](imgFiles\image-20240819153043737.png)
+![image-20240819153043737](imgFiles/image-20240819153043737.png)
 
 # Redux Toolkit
 
@@ -2727,7 +2727,7 @@ export const fetchHomeMultidateAction = () => {
 
 ### file tree
 
-<img src="imgFiles\image-20240819214847445.png" alt="image-20240819214847445.png" style="zoom:33%;"> alt="image-20240819214847445" style="zoom:33%;" />
+<img src="imgFiles/image-20240819214847445.png" alt="image-20240819214847445.png" style="zoom:33%;"> alt="image-20240819214847445.png" style="zoom:33%;"> alt="image-20240819214847445" style="zoom:33%;" />
 
 ```javascript
 src
@@ -2938,7 +2938,7 @@ export const store = configureStore({
 
      
 
-<img src="imgFiles\image-20240819213121619.png" alt="image-20240819213121619.png" style="zoom:33%;"> alt="image-20240819213121619" style="zoom:50%;" />
+<img src="imgFiles/image-20240819213121619.png" alt="image-20240819213121619.png" style="zoom:33%;"> alt="image-20240819213121619.png" style="zoom:33%;"> alt="image-20240819213121619" style="zoom:50%;" />
 
 #### counter.js
 
@@ -3173,7 +3173,7 @@ export default routes;
 
 ## 路由嵌套
 
-![image-20240820144627259](imgFiles\image-20240820144627259.png)
+![image-20240820144627259](imgFiles/image-20240820144627259.png)
 
 必须要需要搭配<Outlet>使用
 
@@ -3459,6 +3459,6 @@ return (
 
 ```
 
-![image-20240821153919676](imgFiles\image-20240821153919676.png)
+![image-20240821153919676](imgFiles/image-20240821153919676.png)
 
 清除effect
