@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Markmap</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+#mindmap {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.0/dist/style.css">
+</head>
+<body>
+<svg id="mindmap"></svg>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-view@0.17.0/dist/browser/index.js"></script><script src="https://cdn.jsdelivr.net/npm/markmap-toolbar@0.17.0/dist/index.js"></script><script>(()=>{setTimeout(()=>{const{markmap:q,mm:v}=window,j=new q.Toolbar;j.attach(v);const we=j.render();we.setAttribute("style","position:absolute;bottom:20px;right:20px"),document.body.append(we)})})()</script><script>((f,d,h,u)=>{const g=f();window.mm=g.Markmap.create("svg#mindmap",(d||g.deriveOptions)(u),h)})(()=>window.markmap,null,{"content":"Redux Toolkit 操作思维导图","children":[{"content":"同步操作","children":[{"content":"1. 定义 Slice","children":[{"content":"<strong>创建 Slice</strong>:","children":[{"content":"使用 <code>createSlice</code> 定义 <code>name</code>, <code>initialState</code>, 和 <code>reducers</code>。","children":[],"payload":{"lines":"6,7"}},{"content":"在 <code>reducers</code> 中定义同步操作的 reducers（动作处理函数）。","children":[],"payload":{"lines":"7,9"}}],"payload":{"lines":"5,9"}}],"payload":{"lines":"4,5"}},{"content":"2. 使用 Dispatch","children":[{"content":"<strong>派发 Action</strong>:","children":[{"content":"使用 <code>dispatch</code> 方法派发同步 action。","children":[],"payload":{"lines":"11,12"}},{"content":"在组件中通过 <code>useDispatch</code> 获取 <code>dispatch</code> 函数。","children":[],"payload":{"lines":"12,14"}}],"payload":{"lines":"10,14"}}],"payload":{"lines":"9,10"}}],"payload":{"lines":"2,3"}},{"content":"异步操作","children":[{"content":"1. 定义 Slice","children":[{"content":"<strong>创建 Thunk</strong>:","children":[{"content":"使用 <code>createAsyncThunk</code> 定义异步逻辑，接收参数并返回异步操作的结果。","children":[],"payload":{"lines":"18,19"}}],"payload":{"lines":"17,19"}},{"content":"<strong>处理异步操作</strong>:","children":[{"content":"在 <code>extraReducers</code> 中处理 <code>pending</code>, <code>fulfilled</code>, <code>rejected</code> 状态。","children":[],"payload":{"lines":"20,21"}},{"content":"<code>pending</code>: 异步请求开始时的状态。","children":[],"payload":{"lines":"21,22"}},{"content":"<code>fulfilled</code>: 异步请求成功完成时的状态。","children":[],"payload":{"lines":"22,23"}},{"content":"<code>rejected</code>: 异步请求失败时的状态。","children":[],"payload":{"lines":"23,25"}}],"payload":{"lines":"19,25"}}],"payload":{"lines":"16,17"}},{"content":"2. 使用 Dispatch","children":[{"content":"<strong>派发 Thunk</strong>:","children":[{"content":"使用 <code>dispatch</code> 方法派发异步 thunk。","children":[],"payload":{"lines":"27,28"}},{"content":"在组件中通过 <code>useDispatch</code> 获取 <code>dispatch</code> 函数，并传入异步 thunk。","children":[],"payload":{"lines":"28,30"}}],"payload":{"lines":"26,30"}}],"payload":{"lines":"25,26"}}],"payload":{"lines":"14,15"}},{"content":"Store 配置","children":[{"content":"1. 配置 Store","children":[{"content":"<strong>默认配置</strong>:","children":[{"content":"使用 <code>configureStore</code> 创建 store。","children":[],"payload":{"lines":"34,35"}},{"content":"默认包含 <code>redux-thunk</code> 中间件。","children":[],"payload":{"lines":"35,36"}}],"payload":{"lines":"33,36"}},{"content":"<strong>添加中间件</strong>:","children":[{"content":"可以通过 <code>middleware</code> 选项添加其他中间件，例如 <code>actionLog</code>。","children":[],"payload":{"lines":"37,39"}}],"payload":{"lines":"36,39"}}],"payload":{"lines":"32,33"}}],"payload":{"lines":"30,31"}}],"payload":{"lines":"0,1"}},null)</script>
+</body>
+</html>

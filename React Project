@@ -1,0 +1,769 @@
+# 需求分析
+
+![image-20240827151934039](imgFiles/image-20240827151934039.png)
+
+![image-20240827152118448](imgFiles/image-20240827152118448.png)
+
+![image-20240827152407745](imgFiles/image-20240827152407745.png)
+
+# 系统设计与项目初始化
+
+> UI设计规范：《UI设计规范》
+>
+> 需求设计规范：《需求设计规范》《业务需求文档》
+
+## 创建项目
+
+```git
+npx create-react-app react-travel --template typescript
+```
+
+## css in JS
+
+看react中的笔记
+
+## 引入UI框架
+
+```cmd
+npm install antd @ant-design/icons
+```
+
+在index.tsx中全局导入antd design
+
+```jsx
+import "antd/dist/reset.css";
+```
+
+组件化操作
+
+创建components和assets文件夹
+
+在components中为每个组件创建文件夹 文件夹中包含三个文件
+
+- 组件名.module.css 
+
+- 组件名.tsx
+
+- index.ts
+
+  在index.ts中实现导出组件
+
+  ```jsx
+  export * from "./组件名"
+  ```
+
+  在components文件夹中创建index.js
+
+  实现统一导出组件文件夹
+
+  ```jsx
+  export * from "./footer";
+  export * from "./header";
+  ```
+
+  在App.tsx中就可以实现更为简便的引入了
+
+  ```jsx
+  import { Header, Footer } from "./components";
+  
+  ```
+
+## 创建主页的各个组件 
+
+在components文件夹中
+
+# 开启路由配置 
+
+建pages文件夹 将创建好的homepage内容迁移至pages/homePages folder
+
+# 实现按钮点击跳转页面
+
+使用useNavigate
+
+```tsx
+const navigate = useNavigate();
+<span onClick={() => navigate("/")}>
+  ...
+</span>
+```
+
+# 实现图片点击跳转
+
+使用<Link>组件包裹原组件
+
+```jsx
+<Link to={`/detail/${id}`}>
+```
+
+# 实现类组件中使用hook*
+
+src / helpers / withRouter.tsx
+
+```jsx
+import { useNavigate, NavigateFunction } from "react-router-dom";
+
+// 定义属性
+export interface RouteComponentProps {
+  navigate: NavigateFunction;
+}
+
+export const withRouter = (Component) => {
+  const Wrapper = (props) => {
+    const navigate = useNavigate();
+    return <Component navigate={navigate} {...props} />;
+  };
+  return Wrapper;
+};
+```
+
+```jsx
+class HomePageComponent extends React.Component<RouteComponentProps> {
+  render(): React.ReactNode {
+    console.log(this.props.navigate);
+}
+// 使用高阶组件包裹
+export const HomePage = withRouter(HomePageComponent);
+```
+
+# [i18n国际化](https://react.i18next.com/guides/quick-start)
+
+```jsx
+npm install react-i18next i18next --save
+```
+
+## Configure i18next
+
+- 创建`i18n` folder
+- 创建 config.ts
+
+```jsx
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+
+import translation_en from "./en.json";
+import translation_zh from "./zh.json";
+
+const resources = {
+  en: {
+    translation: translation_en,
+  },
+  zh: {
+    translation: translation_zh,
+  },
+};
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    resources,
+    lng: "zh", // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources
+    // you can use the i18n.changeLanguage function to change the language manually: https://www.i18next.com/overview/api#changelanguage
+    // if you're using a language detector, do not define the lng option
+
+    interpolation: {
+      escapeValue: false, // react already safes from xss
+    },
+  });
+
+export default i18n;
+
+```
+
+- 粘贴语言文件 `zn.json` 、`en.json`到 `i18n` folder
+
+#### using in class Component
+
+- `withTranslation`: 引入高阶组件(w小写)
+- `WithTranslation`:TypeScript 接口类型,用于定义 withTranslation HOC 注入到组件上的额外属性。
+- 当我们完成i18n的高阶组件以后，`headerComponent`就会向`props`中追加一个叫做t的函数，t 就是 translation 的缩写，我们可以利用这个函数以字符串的形式来访问语言文件中的json对象。
+
+```jsx
+import "./i18n/configs"
+import { withTranslation, WithTranslation } from "react-i18next";
+
+class HeaderComponent extends React.Component<RouteComponentProps & WithTranslation, State> {
+  return{
+    render(
+			  <Button onClick={() => navigate("/register")}>
+  				{t("header.register")}
+				</Button>}
+    )
+	}
+}
+
+export const Header = withTranslation()(withRouter(HeaderComponent));
+//第一括号代表配置语言所使用的命名空间，而第二个括号才是我们的组件
+```
+
+## Using the hook
+
+```jsx
+import { useTranslation } from "react-i18next";
+
+export const Footer: React.FC = () => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      {t("footer.detail")}
+    </div>
+  );
+};
+```
+
+# react-redux
+
+<img src="imgFiles/image-20240830132723089.png" alt="image-20240830132723089" style="zoom:67%;" />
+
+redux ：组件对应的reducer文件夹、hooks、store
+
+## store
+
+- rootStore
+- store
+- type RootState
+
+```jsx
+import { createStore, combineReducers } from "redux";
+import languageReducer from "./language/languageReducer";
+import recommendProductsReducer from "./recommendProducts/recommendProductsReducer";
+
+const rootReducer = combineReducers({
+  language: languageReducer,
+  recommendProducts: recommendProductsReducer,
+});
+
+const store = createStore(rootReducer);
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export default store;
+
+```
+
+## 函数组件
+
+### 创建 `ActionCreator `function
+
+返回值是一个`action对象`，要包含 `type` 和 `payload` 属性
+
+```jsx
+export const CHANGE_LANGUAGE = "change_language";
+
+// 定义类型
+export interface ChangeLanguageAction {
+  type: typeof CHANGE_LANGUAGE;
+  payload: "zh" | "en";
+}
+
+export const changeLanguageActionCreator = (
+  languageCode: "zh" | "en"
+): ChangeLanguageAction => {
+  return {
+    type: CHANGE_LANGUAGE,
+    payload: languageCode,
+  };
+};
+```
+
+### 创建 `reducer`
+
+要求指定创建 `initial state对象` 和 `reducer function` 
+
+- 每一个`case`中要 `return 新的state`,使用 解构赋值{...}
+
+```jsx
+/**
+ * reducer 创建并导出
+ * 在store文件中被引入
+ */
+import i18n from "../../i18n/config";
+import { CHANGE_LANGUAGE, ChangeLanguageAction } from "./languageActions";
+
+export interface LanguageState {
+  language: "en" | "zh";
+  languageList: { name: string; code: string }[];
+}
+// 定义默认state
+const defaultState: LanguageState = {
+  language: "zh",
+  languageList: [
+    { name: "中文", code: "zh" },
+    { name: "English", code: "en" },
+  ],
+};
+
+export default (state = defaultState, action: ChangeLanguageAction) => {
+  switch (action.type) {
+    case CHANGE_LANGUAGE:
+      i18n.changeLanguage(action.payload);
+      return { ...state, language: action.payload };
+    default:
+      return state;
+  }
+};
+```
+
+### 1. 定义根 state 和 dispatch 类型
+
+```jsx
+//store.ts
+import { createStore } from "redux";
+import languageReducer from "./language/languageReducer";
+
+const store = createStore(languageReducer);
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export default store;
+```
+
+```jsx
+//  直接在组件中
+const dispatch = useDispatch<Dispatch<ChangeLanguageAction>>();
+```
+
+### 2. 创建hooks文件
+
+单独创建`hooks.ts`在redux文件夹中，对于 `useSelector`，它省去了您每次都键入 `(state: RootState)` 的需要
+
+```jsx
+import {
+  useSelector as useReduxSelector,
+  TypedUseSelectorHook,
+} from "react-redux";
+import { RootState } from "./store";
+
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+```
+
+### 3. 使用hooks
+
+- `useSelector`: 用于获取 state
+- `useDispatch`: 用于派发 acion
+
+```jsx
+// 来自自定的hooks文件
+import { useSelector } from "../../redux/hooks";
+// 来自react-redux
+import { useDispatch } from "react-redux";
+
+const language = useSelector((state) => state.language);
+  const languageList = useSelector((state) => state.languageList);
+  const dispatch = useDispatch<Dispatch<ChangeLanguageAction>>();
+
+  const onClick = (e) => {
+    dispatch(changeLanguageActionCreator(e.key));
+  };
+
+<a onClick={(e) => e.preventDefault()}>
+  {language === "zh" ? "中文" : "English"}
+</a>
+```
+
+```jsx
+import { Provider } from "react-redux";
+import store from "./redux/store";    
+
+<Provider store={store}>
+  <App />
+</Provider>
+```
+
+## 类组件
+
+> 需要用到 `connect `函数(来自react-redux) 和 `自定义两个函数`实现将`state`和`action`派发到`props`中
+
+
+
+### mapStateToProps
+
+```jsx
+const mapStateToProps = (state: RootState) => {
+  return {
+    language: state.language.language,
+    languageList: state.language.languageList,
+  };
+};
+```
+
+### mapDispatchToProps
+
+```jsx
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeLanguage: (code: "zh" | "en") => {
+      const action = changeLanguageActionCreator(code);
+      dispatch(action);
+    },
+  };
+};
+```
+
+# AJAX异步获取数据
+
+在`HomePage`的`componentDidMount `中利用`axios`完成异步数据获取
+
+```jsx
+// 🔴 定义接口
+interface State {
+  loading: boolean; //处理悬空数据
+  error: string | null;
+  productList: any[];
+}  
+
+async componentDidMount() {
+    try {
+      const { data } = await axios.get(
+        "http://82.157.43.234:8080/api/productCollections",
+        {/*headers:*/}
+      );
+      /* 🔴处理悬空数据 */
+      this.setState({ productList: data, loading: false, error: null });
+    } catch (error) {
+      if (error instanceof Error) {
+        this.setState({ error: error.message, loading: false });
+      }
+    }
+  }
+```
+
+在构造函数中完成组件的初始化
+
+```jsx
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      error: null,
+      productList: [],
+    };
+  }
+```
+
+**请求头Tips** 
+
+- 直接在网站的最初入口`ndex.ts`中放入请求头，避免多次重复代码
+
+```tsx
+axios.defaults.headers["x-icode"] = "2A95A6614213A21A";
+```
+
+## **如何处理悬空数据**
+
+- `悬空数据`指的是页面渲染虚拟DOM时还未挂载导致无法展示页面
+
+1. 在页面接口中添加一个`loading `数据类型为`boolean`
+
+   ```tsx
+   interface State {
+     loading: boolean;
+   	...
+   }
+   ```
+
+2. 在`ComponentDidMount`中利用`try catch`进行判断(代码见上面异步请求)
+
+   - 当它在try中 则为true
+   - 当它在catch中 则为false
+
+3. 针对不同的boolean值显示不同的组件
+
+   - 引入`Spin`组件 （转圈的图标）
+
+   ```jsx
+   import { Spin } from "antd";
+   ```
+
+   - 在render中添加加载时的样式
+
+   ```jsx
+   if (loading) {
+         return (
+           <Spin
+             size="large"
+             style={{
+               marginTop: 200,
+               marginBottom: 200,
+               marginLeft: "auto",
+               marginRight: "auto",
+               width: "100%",
+             }}
+           />
+         );
+       }
+       if (error) {
+         return <div>网站出错：{error}</div>;
+       }
+   ```
+
+- 无状态
+
+- 面向"资源"
+
+  - api/v1/touristRoutes ✔️
+  - api/v1/GetTouristRoutes ❌
+
+- 使用HTTP的动词
+
+  ![image-20240829160642678](imgFiles/image-20240829160642678.png)
+
+# MVC convert to Redux
+
+## MVC
+
+React项目并不提倡使用MVC架构
+
+- 一种架构模式，同时也是一种思想
+- 由模型(Model)、视图(View)和控制器(Controller)构成
+- 作用于分离业务操作、UI显示、逻辑控制
+
+### 视图View
+
+- 用户交互界面
+- 仅用于数据展示 不处理数据
+- React项目中的JSX代码
+
+### 模型Model
+
+- MVC架构核心
+- 表示业务模型或数据模型
+- 业务逻辑，如算法实现、数据的管理、输出对象的封装等等
+
+### 控制器Controller
+
+- 接受用户的输入，并调用模型和视图去完成用户的请求处理
+- 不处理数据
+- React -> MVVM
+
+## Redux
+
+![image-20240829193722824](imgFiles/image-20240829193722824.png)
+
+# redux-thunk
+
+- Moving complex logic out of components
+- Making async requests or other async logic
+
+![image-20240830152715722](imgFiles/image-20240830152715722.png)
+
+![image-20240830160136326](imgFiles/image-20240830160136326.png)
+
+Redux中间件公式
+
+```jsx
+const middleware = (store) => (next) =>(action)  => {}
+```
+
+
+
+# 记录
+
+`className={styles["App-header"]}`
+这种方式适用于 CSS 中定义的类名包含连字符 `-` 的情况。在 JavaScript 中,使用点号 `.` 来引用属性名称时,连字符 `-` 会被解释为减法操作。因此,需要使用方括号 `[]` 的形式来引用这种包含连字符的属性名。
+
+1. 导入module .css 无法识别
+
+   create `typings.d.ts` file in the current workspace.
+
+   ```jsx
+   declare module '*.css';
+   declare module '*.less';
+   declare module '*.png';
+   declare module '*.svg' {
+     export function ReactComponent(props: React.SVGProps<SVGSVGElement>): React.ReactElement
+     const url: string
+     export default url
+   }
+   ```
+
+   创建index.d.ts 在根目录
+
+   ```jsx
+   declare module "*.scss" {
+     const content: { [key: string]: any };
+     export = content;
+   }
+   ```
+
+   
+
+2. min-height: 75vh;
+
+- **min-height**: 这个属性设置了元素的最小高度。
+- **75vh**: `vh` 是 CSS 中的一个长度单位,表示视口高度的 1/100。也就是说, `75vh` 表示元素的最小高度为视口高度的 75%。
+
+3. 在组件中使用接口
+
+   ```jsx
+   interface PropsType {
+     id: string | number;
+     size: "large" | "small";
+     imageSrc: string;
+     price: number | string;
+     title: string;
+   }
+   
+   export const ProductImage: React.FC<PropsType> = ({
+     id,
+     size,
+     imageSrc,
+     price,
+     title,
+   }) => {
+     return (
+       <>
+         {size === "large" ? (
+           <Image src={imageSrc} height={285} width={485} />
+         ) : (
+           <Image src={imageSrc} height={120} width={240} />
+         )}
+         <div>
+           <Typography.Text type="secondary">{title.slice(0, 25)}</Typography.Text>
+           <Typography.Text type="danger" strong>
+             ¥ {price} 起
+           </Typography.Text>
+         </div>
+       </>
+     );
+   };
+   ```
+
+4. 路由
+
+   ![image-20240828145737490](imgFiles/image-20240828145737490.png)
+
+   ![image-20240828145834781](imgFiles/image-20240828145834781.png)
+
+![image-20240828145852750](imgFiles/image-20240828145852750.png)
+
+![image-20240828150258492](imgFiles/image-20240828150258492.png)
+
+![image-20240828150337921](imgFiles/image-20240828150337921.png)
+
+5. 实现路由带参数传递
+
+```jsx
+<Route
+  path="/detail/:touristRouteId/:other"
+  element={<DetailPage />}
+  />
+```
+
+利用`:/`
+
+```jsx
+路径 :/参数1:/参数2
+```
+
+使用useParams获取传参
+
+在useParams前使用<MatchParams>实现类型适配，这样在输入parmas.后就会自动联想(方便输入)
+
+```tsx
+type MatchParams = {
+  touristRouteId: string;
+  other: string;
+};
+
+export const DetailPage: React.FC = () => {
+  let params = useParams<MatchParams>();
+  return (
+    <h1>
+      旅游路线详情页面， 路线ID: {params.touristRouteId}
+      {params.other}
+    </h1>
+  );
+};
+
+```
+
+6. 
+
+在 ReactJS 中，有三种不同的链接标签, 分别是：NavLink、Link 和 a 标签。
+
+- NavLink：当你想要突出显示当前或活动链接时使用，一般与 activeClassName 属性一起使用。 请参见下面的示例：
+
+```tsx
+<NavLink to="/home" activeClassName="active" >Home</NavLink><br/>
+```
+
+```css
+.active{
+  color:red;
+}
+```
+
+- Link：当链接没有特殊样式或突出显示时使用。 请参见下面的示例。
+
+```jsx
+<Link to="/not-active">Not Active </Link>
+```
+
+- 锚标签 a：用于网页外的链接。请参见下面的示例。
+
+  
+
+```jsx
+<a href="https://baidu.com"> baidu </a>
+```
+
+注意：如果需要链接到内部页面时，可以优先使用NavLink 或 Link； 而对于外部链接，a 是首选。
+
+## Redux
+
+Redux是一种设计模式
+
+
+![image-20240828173125273](imgFiles/image-20240828173125273.png)
+
+![image-20240828173342502](imgFiles/image-20240828173342502.png)
+
+![image-20240828173653479](imgFiles/image-20240828173653479.png)
+
+高阶函数 使用wtih开头
+
+
+
+在 Redux 中，当处理异步操作时，通常会有几种不同的 `loading` 状态来反映操作的当前进展。这些状态通常包括：
+
+### 1. **`idle`**
+
+- **描述**: 初始状态，表示当前没有任何异步操作正在进行。通常用在异步操作尚未启动或刚刚重置时。
+- **用途**: 用于判断是否需要显示某些初始内容，或者用于触发首次加载。
+
+### 2. **`pending`**
+
+- **描述**: 表示异步操作正在进行中。通常在请求发送后立即将 `loading` 状态设置为 `pending`。
+- **用途**: 用于显示加载指示器（例如 `spinner`），告知用户正在获取数据或执行某些操作。
+
+### 3. **`fulfilled`**
+
+- **描述**: 表示异步操作成功完成并且数据已成功获取或操作成功执行。
+- **用途**: 用于隐藏加载指示器并显示获取到的数据或操作成功的结果。
+
+### 4. **`rejected`**
+
+- **描述**: 表示异步操作失败。例如网络请求失败或者服务器返回错误。
+- **用途**: 用于显示错误消息，并允许用户重试操作或者执行其他错误处理逻辑。
+
+### 5. **`loading` (自定义状态)**
+
+- 有些应用程序可能会简单地使用 
+
+  ```
+  true/false
+  ```
+
+   表示正在加载与否。这时，
+
+  ```
+  loading
+  ```
+
+   的值通常是布尔类型：
+
+  - **`true`**: 异步操作正在进行。
+  - **`false`**: 异步操作已结束（无论成功或失败）。
+
+在使用 `Redux Toolkit` 时，`createAsyncThunk` 默认会为你管理这些状态，并将 `pending`、`fulfilled` 和 `rejected` 动作类型自动生成并分派给你在 `extraReducers` 中的处理函数。你可以利用这些状态来控制组件的 UI 显示逻辑。
+
+![image-20240831150538656](imgFiles/image-20240831150538656.png)

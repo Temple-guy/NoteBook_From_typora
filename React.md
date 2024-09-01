@@ -2103,6 +2103,38 @@ export class App extends PureComponent {
 
 ## css modules
 
+![image-20240827142143859](imgFiles/image-20240827142143859.png)
+
+1. 修改引入方式 当成一个对象引入
+
+   ```jsx
+   impoet style from "./index.css"
+   ```
+
+2. 添加类型声明文件 custom.d.ts
+
+   ```jsx
+   declare module "*.css" {
+     const css: { [key: string]: string };
+     export default css;
+   }
+   ```
+
+3. 修改className的使用方式
+
+   ```jsx
+   function App() {
+     return (
+       <div className={styles.app}>
+         <div className={styles.robotList}>
+           {robots.map((r) => (
+             <Robot id={r.id} email={r.email} name={r.name} />
+           ))}
+         </div>
+       </div>
+     );
+   ```
+
 > css modules并不是React特有的解决方案，而是所有使用了类似于`webpack配置的环境`下都可以使用的。
 
 React的脚手架已经内置了css modules的配置：
@@ -2114,39 +2146,39 @@ React的脚手架已经内置了css modules的配置：
 >
 > 2. 所有的`className`都必须使用`{style.className}`的形式来编写；
 >
-> 3. `不方便动态来修改`某些样式，依然需要使用内联样式的方式：
+> 3. `不方便动态来修改`某些样式，依然需要使用内联样式的方式，因为所有的class的名称都是动态生成的
 >
->    
+>    ![image-20240827145749090](imgFiles/image-20240827145749090.png)
+>
 
-1. 单独创建App.module.css文件
+## css in ts
 
-   ```javascript
-   .title {
-     font-size: 32px;
-     color: gold;
-   }
-   .content {
-     font-size: 22px;
-     color: red;
-   }
-   ```
+> 以下步骤用于编写ts代码时实现css提示功能
 
-2. 在App.js中导入
+1. 安装
 
-   ```javascript
-   import React, { PureComponent } from "react";
-   import appStyle from "./App.module.css";
-   export class App02 extends PureComponent {
-     render() {
-       return (
-         <div>
-           <h2 className={appStyle.title}>我是标题</h2>
-           <p className={appStyle.content}>我是内容</p>
-         </div>
-       );
-     }
-   }
-   ```
+```cmd
+npm install typescript-plugin-css-modules --save-dev
+```
+
+> 这个插件仅参与开发不参与最终上传打包， 所以安装在dev下
+
+2. 在package.json中完成配置
+
+![image-20240827150336483](imgFiles/image-20240827150336483.png)
+
+3. 在根目录创建文件夹包含配置文件
+
+   ![image-20240827150610189](imgFiles/image-20240827150610189.png)
+
+```json
+{
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true
+}
+```
+
+
 
 ## css in js
 
@@ -2233,6 +2265,78 @@ export default App;
 ```javascript
 <h1 className={classNames("aaa", { bbb: true, ccc: false })}>
 ```
+
+# react中axios封装
+
+在使用 Axios 进行 HTTP 请求时,通常会对其进行一些封装和配置,以提高代码的可维护性和复用性。下面是一些常见的 Axios 封装步骤:
+
+1. **设置默认配置**:
+   - 设置 `BASE_URL` 和 `TIME_OUT` 等常量,作为默认的 Axios 配置。
+   - 这样可以确保所有的 HTTP 请求都使用相同的基础 URL 和超时时间。
+2. **创建 Axios 实例**:
+   - 使用 `axios.create()` 方法创建一个 Axios 实例。
+   - 在创建实例时,可以将上述默认配置应用到实例中。
+
+```javascript
+import axios from 'axios';
+
+const service = axios.create({
+  baseURL: BASE_URL,
+  timeout: TIME_OUT,
+});
+```
+
+1. 请求拦截器
+   - 在请求发送之前,可以使用请求拦截器添加一些公共的请求头或处理请求数据。
+   - 例如,可以在请求头中添加身份验证 token 或对请求参数进行格式化。py
+
+```javascript
+service.interceptors.request.use(
+  (config) => {
+    // 在发送请求之前做些什么
+    return config;
+  },
+  (error) => {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  }
+);
+```
+
+1. 响应拦截器
+   - 在接收到服务端响应后,可以使用响应拦截器对响应数据进行处理。
+   - 例如,可以根据响应状态码进行错误处理,或对响应数据进行转换。
+
+```javascript
+service.interceptors.response.use(
+  (response) => {
+    // 2xx 范围内的状态码都会触发该函数。
+    // 对响应数据做点什么
+    return response.data;
+  },
+  (error) => {
+    // 超出 2xx 范围的状态码都会触发该函数。
+    // 对响应错误做点什么
+    return Promise.reject(error);
+  }
+);
+```
+
+1. 导出 Axios 实例
+   - 将配置好的 Axios 实例导出,供应用程序其他部分使用。
+
+```javascript
+export default service;
+```
+
+通过以上步骤,我们就可以得到一个经过封装的 Axios 实例,具有以下特点:
+
+- 统一的 `BASE_URL` 和 `TIME_OUT` 配置。
+- 请求拦截器,可以处理请求头和请求数据。
+- 响应拦截器,可以处理响应数据和错误。
+- 导出一个可复用的 Axios 实例。
+
+这样的 Axios 封装能够提高代码的可维护性和复用性,并且能够更好地满足应用程序的需求。
 
 # JavaScript纯函数
 
@@ -2490,6 +2594,11 @@ function combined(state = {}, action) {
 
 3. **映射选择**:
 
+   > ==With React Redux, your components never access the store directly== - `connect` does it for you. React Redux gives you two ways to let components dispatch actions:
+   >
+   > - By default, a connected component receives `props.dispatch` and can dispatch actions itself.
+   > - `connect` can accept an argument called `mapDispatchToProps`, which lets you create functions that dispatch when called, and pass those functions as props to your component.
+
    - 映射选择指的是 `mapStateToProps` 和 `mapDispatchToProps` 两个函数。
 
    - `mapStateToProps` 函数负责将 Redux 的 state 树中的部分状态映射到组件的 props 上。
@@ -2562,11 +2671,13 @@ export class About extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
-  counter: state.counter,
-  banners: state.banners,
-  recommends: state.recommends,
-});
+const mapStateToProps = (state) => {
+  return {
+  	counter: state.counter,
+    banners: state.banners,
+    recommends: state.recommends,
+  }
+};
 
 const mapdispatchToProps = (dispatch) => ({
   addNumber: (num) => dispatch(addNumberAction(num)),
@@ -3147,6 +3258,10 @@ npm install react-router-dom
 ## router的另一种写法
 
 ```jsx
+{useRoutes(routes)}
+```
+
+```jsx
 const routes = [
   {
     path: "/",
@@ -3241,7 +3356,7 @@ export function App(props)
 >        );
 >      }
 >    }
->    
+>                   
 >    export const withRouter = function withRouter(WrapperComponent) {
 >      return function (props) {
 >        const navigate = useNavigate(); //返回值是一个函数 所以navigate其实也是一个函数
@@ -3249,7 +3364,7 @@ export function App(props)
 >        return <WrapperComponent router={{ navigate }} />
 >      };
 >    };
->    
+>                   
 >    export default withRouter(Home); //增强
 >    ```
 
@@ -3290,6 +3405,25 @@ A `<Link>` is an element that lets the user navigate to another page by **clicki
 
 - 当来到初始页面，就会自动跳转到home路径的页面
 - 当来到home页面，就会自动跳转到recommend页面
+
+## 懒加载
+
+```jsx
+const MyComponent = React.lazy(() => import('./MyComponent'));
+```
+
+- 由于懒加载组件在首次加载时需要异步加载,所以需要一个 `Suspense` 组件来处理加载状态。
+
+- 需要在根目录下的index.js引入Supsence
+
+```jsx
+import React, { Suspense } from "react";    
+<Suspense fallback="loading">
+  <HashRouter>
+        <App />
+  </HashRouter>
+</Suspense>
+```
 
 # ==hook==
 
@@ -3453,12 +3587,203 @@ return (
 > - 事实上，类似于网络请求、手动更新DOM、一些事件的监听，都是React更新DOM的一些副作用(Side Effects);
 > - useEffect的出现就是为了解解决side Effects 的需求，这也是它的名字由来
 
-### useEffect的使用
+### 基础使用
 
-```javascript
+- 在react渲染完成后才会执行useEffect
+- 传入一个回调函数, 在react执行完更新DOM操作后，就会回调这个函数
+-  回调函数本身有一个返回值 返回值本身也是一个回调函数 在这里`取消监听`
 
+```jsx
+const [count, setCount] = useState(100);
+  
+  useEffect(() => {
+    //传入回调函数 是等到组件渲染结束后自动执行
+    document.title = count;
+
+    // 返回值
+    return () => {
+      // 取消监听
+    };
+  });
 ```
 
-![image-20240821153919676](imgFiles/image-20240821153919676.png)
+### 多个useEffect
 
-清除effect
+```jsx
+  // 多个useEffect的使用 会依次执行
+  useEffect(() => {
+    // 1. 修改document.title
+    console.log("修改标题");
+  });
+
+  useEffect(() => {
+    // 2. 对redux中数据变化监听
+    console.log("监听redux数据");
+
+    // 2.1 取消redux中数据的监听
+    return () => {};
+  });
+  useEffect(() => {
+    // 3. 监听其他事件
+    console.log("监听其他事件");
+  });
+```
+
+### 性能优化
+
+[Examples of passing reactive dependencies](https://react.dev/reference/react/useEffect#examples-dependencies)
+
+useEffect的执行机制是由我们决定的
+
+清除useEffect
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount(count + 1); // You want to increment the counter every second...
+    }, 1000)
+    return () => clearInterval(intervalId);
+  }, [count]); // 🚩 ... but specifying `count` as a dependency always resets the interval.
+  // ...
+}
+```
+
+问题在于,每当 `count` 发生变化时,`useEffect` 都会被重新运行,这会导致定时器被重置。也就是说,每次 `count` 变化,定时器都会被清除并重新创建,这样计数器就无法正常工作了。
+
+To fix this, [pass the `c => c + 1` state updater](https://react.dev/reference/react/useState#updating-state-based-on-the-previous-state) to `setCount`:
+
+```jsx
+import { useState, useEffect } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCount(c => c + 1); // ✅ Pass a state updater
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []); // ✅ Now count is not a dependency
+
+  return <h1>{count}</h1>;
+}
+```
+
+Now that you’re passing `c => c + 1` instead of `count + 1`, [your Effect no longer needs to depend on `count`.](https://react.dev/learn/removing-effect-dependencies#are-you-reading-some-state-to-calculate-the-next-state) As a result of this fix, it won’t need to cleanup and setup the interval again every time the `count` changes.
+
+依赖数组变为空 `[]`,这样可以确保 `useEffect` 只在组件挂载时运行一次,而不会因为 `count` 的变化而重新运行。
+
+return 中的内容只会在组件被卸载时执行一次
+
+所以这个定时器只会被创建一次 清除一次
+
+这样就和ComponentDidMount 和 ComponentWillUnMount 完全一致了
+
+## useContext
+
+在context folder 中创建一个index.js：用于创建context
+
+```jsx
+import { createContext } from "react";
+
+const UserContext = createContext();
+const ThemeContext = createContext();
+
+export { UserContext, ThemeContext };
+```
+
+在根目录下的index.js 中引入创建的context 添加value 并包裹住<app/>
+
+```jsx
+import { UserContext, ThemeContext } from "./05_useContext/context";
+
+root.render(
+  <UserContext.Provider value={{ name: "cic", age: 18 }}>
+    <ThemeContext.Provider value={{ theme: "dark " }}>
+      <App />
+    </ThemeContext.Provider>
+  </UserContext.Provider>
+);
+```
+
+在App组件中利用useContext()获取返回值  直接返回的就是之前定义的value对象
+
+```jsx
+import React, { memo, useContext } from "react";
+import { UserContext, ThemeContext } from "./context";
+const App = memo(() => {
+  const user = useContext(UserContext); // user 就相当于 value
+  const Theme = useContext(ThemeContext); // Theme 就相当于 value
+  return (
+    <div>
+      {user.name}-{user.age}-{Theme.theme}
+    </div>
+  );
+}
+```
+
+## useCallback
+
+React will return (not call!) your **function** back to you during the initial render. On next renders, React will give you the same function again if the `dependencies` have not changed since the last render.
+
+### returns
+
+On the initial render, `useCallback` returns the `fn` function you have passed.
+
+During subsequent renders, it will either return an already stored `fn`  function from the last render (if the dependencies haven’t changed), or return the `fn` function you have passed during this render.
+
+> 我的理解就是 初次渲染 他会返回你的函数 后续渲染 只要你的dependencies不变 它就存在那 不会重新render 变了 就返回新render的
+
+![image-20240822202839572](imgFiles/image-20240822202839572.png)
+
+### Usage-Skipping re-rendering of components
+
+- Make sure you’ve specified the dependency array as a second argument!
+- If you forget the dependency array, `useCallback` will return a new function every time:
+
+```jsx
+function ProductPage({ productId, referrer }) {
+  const handleSubmit = useCallback((orderDetails) => {
+    post('/product/' + productId + '/buy', {
+      referrer,
+      orderDetails,
+    });
+  }, [productId, referrer]); // ✅ Does not return a new function unnecessarily
+  // ...
+```
+
+## useMemo
+
+`useMemo` is a React Hook that lets you cache **the result of a calculation** between re-renders.
+
+对返回结果优化
+
+
+
+#### Returns
+
+On the initial render, `useMemo` returns the result of calling `calculateValue` with no arguments.
+
+During next renders, it will either return an already stored value from the last render (if the dependencies haven’t changed), or call `calculateValue` again, and return the result that `calculateValue` has returned.
+
+![image-20240822213632480](imgFiles/image-20240822213632480.png)
+
+## useRef
+
+useRefi返回一个ref对象，返回的ref对象再组件的整个生命周期保持不变。
+
+始终返回同一个对象
+
+By using a ref, you ensure that:
+通过使用 ref，您可以确保：
+
+- You can **store information** between re-renders (unlike regular variables, which reset on every render).
+  您可以在重新渲染之间存储信息（与常规变量不同，常规变量在每次渲染时都会重置）。
+- Changing it **does not trigger a re-render** (unlike state variables, which trigger a re-render).
+  更改它不会触发重新渲染（与状态变量不同，状态变量会触发重新渲染）。
+- The **information is local** to each copy of your component (unlike the variables outside, which are shared).
+
+更改 ref 不会触发重新渲染。这意味着 refs 非常适合存储不会影响组件视觉输出的信息。
