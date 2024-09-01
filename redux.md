@@ -4,11 +4,11 @@
 - Reducer -- Redux Toolkit --> slice
 - Action -- Redux-Thunk --> thunk(function)
 
-==思维导图== [markmap.html](思维导图\markmap.html) 
+==思维导图== [markmap.html](思维导图/markmap.html) 
 
 ## Redux-Toolkit 同步与异步的区别
 
-==思维导图== [markmap2.html](思维导图\markmap2.html) 
+==思维导图== [markmap2.html](思维导图/markmap2.html) 
 
 | 特点              | 同步                                          | 异步                                                   |
 | ----------------- | --------------------------------------------- | ------------------------------------------------------ |
