@@ -2406,7 +2406,10 @@ is an *Object*
 Redux要求我们通过action来更新数据
 
 - 必须通过**派发（dispatch）**action 来更新
-- action是一个普通的JavaScript对象，用来描述这次更新的type和content
+- action是一个普通的JavaScript对象, 由以下两个属性：
+  - type：发生事件的额描述
+  - payLoad：事件附带的数据
+
 
 ### reducer 
 
@@ -3356,7 +3359,7 @@ export function App(props)
 >        );
 >      }
 >    }
->                   
+>                      
 >    export const withRouter = function withRouter(WrapperComponent) {
 >      return function (props) {
 >        const navigate = useNavigate(); //返回值是一个函数 所以navigate其实也是一个函数
@@ -3364,7 +3367,7 @@ export function App(props)
 >        return <WrapperComponent router={{ navigate }} />
 >      };
 >    };
->                   
+>                      
 >    export default withRouter(Home); //增强
 >    ```
 

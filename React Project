@@ -553,7 +553,155 @@ Redux中间件公式
 const middleware = (store) => (next) =>(action)  => {}
 ```
 
+# layouts
 
+大多数页面都包含Header 和 Footer 组件 我们可以尝试把他们提取出来 放置在layouts/MainLayout folder中
+
+`MainLayout` 组件作为一个布局容器，可以被用于包裹你的页面组件。这样，你可以在 `MainLayout` 中定义页面的共同结构（如头部、尾部等），而具体的页面内容则通过 `children` 传递给 `MainLayout`。
+
+```jsx
+export const MainLayout: React.FC<PropsType> = ({ children }) => {
+  return (
+    <div>
+      <Header />  {/* 头部组件 */}
+      <div className={styles["page-content"]}>
+        {children}  {/* 这里将会渲染传入的子元素 */}
+      </div>
+      <Footer />  {/* 尾部组件 */}
+    </div>
+  );
+};
+```
+
+# 单点登录与JWT
+
+![image-20240902185813554](imgFiles/image-20240902185813554.png)
+
+
+
+用户认证：指的是使用用户名、密码来验证当前用户的身份，也就是用户登录
+
+- 错误状态码：401 Unauthorized(未授权)
+
+用户授权： 指的是当前用户有足够的权限访问特定的资源
+
+- 错误状态码：403 forbidden(禁止访问)
+
+使用服务器的session判断 用户是否登录
+
+- 用户登录后，服务器会保存登录的session信息
+- Session ID 会通过cookie传递给前端
+- 当用户需要访问某个API的时候，用户的session ID就会被包含在http请求中
+
+JWT 信息只需要保存在客户端 无状态登录
+
+![image-20240902191227734](imgFiles/image-20240902191227734.png)
+
+![image-20240902191400363](imgFiles/image-20240902191400363.png)
+
+![image-20240902191434575](imgFiles/image-20240902191434575.png)
+
+![image-20240902192244299](imgFiles/image-20240902192244299.png)
+
+jwt 解码工具
+
+```jsx
+npm install jwt-decode
+```
+
+```jsx
+import { jwtDecode, JwtPayload as DefaultJwtPayLoad} from "jwt-decode";
+
+```
+
+# 登录持久化
+
+![image-20240902210007230](imgFiles/image-20240902210007230.png)
+
+JWT 无session 
+
+![image-20240902210048018](imgFiles/image-20240902210048018.png)
+
+![image-20240902210148255](imgFiles/image-20240902210148255.png)
+
+使用插件https://github.com/rt2zz/redux-persist
+
+```jsx
+npm install redux-persist
+
+```
+
+```jsx
+// store
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "root",
+  storage,
+  // 白名单 只保存以下数据
+  whitelist: ["user"],
+};
+
+// 持久化reducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  // 中间件已经默认包括了redux-thunk，actionLog也可以在这里添加
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(actionLog),
+});
+// 持久化stor
+export const persistor = persistStore(store);
+
+export default { store, persistor };
+```
+
+```jsx
+// index.ts
+import rootStore from "./redux/store";
+import { PersistGate } from "redux-persist/integration/react"; 
+
+//store
+//persistor 均来自store 
+root.render(
+  <Provider store={rootStore.store}>
+    <PersistGate persistor={rootStore.persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
+);
+```
+
+# 私有路由系统
+
+订单页面都是私有的 要用到私有路由
+
+https://create-react-app.dev/docs/deployment
+
+
+
+# 部署方案
+
+![image-20240903212456200](imgFiles/image-20240903212456200.png)
+
+```jsx
+npm install -g serve
+npm install
+npm run build
+serve -s build
+```
+
+ctrl + c 停止命令
+
+serve -s build -l 12231
+
+Docker
+
+![image-20240903213741828](imgFiles/image-20240903213741828.png)
+
+![image-20240903213835150](imgFiles/image-20240903213835150.png)
 
 # 记录
 
@@ -721,6 +869,8 @@ Redux是一种设计模式
 
 高阶函数 使用wtih开头
 
+## `loading` 状态
+
 
 
 在 Redux 中，当处理异步操作时，通常会有几种不同的 `loading` 状态来反映操作的当前进展。这些状态通常包括：
@@ -767,3 +917,130 @@ Redux是一种设计模式
 在使用 `Redux Toolkit` 时，`createAsyncThunk` 默认会为你管理这些状态，并将 `pending`、`fulfilled` 和 `rejected` 动作类型自动生成并分派给你在 `extraReducers` 中的处理函数。你可以利用这些状态来控制组件的 UI 显示逻辑。
 
 ![image-20240831150538656](imgFiles/image-20240831150538656.png)
+
+## `type` & `interface`
+
+**使用 `interface`**:
+
+- 定义对象或类的形状，并且可能会对该对象或类进行扩展或继承。
+- 希望利用声明合并特性。
+- 在使用库（如 React）时，通常会看到大量的 `interface` 定义，因为它们需要扩展性和声明合并能力。
+
+**使用 `type`**:
+
+- 定义简单的对象形状，或定义联合类型、交叉类型、元组等复杂类型。
+- 不需要声明合并或继承。
+- 需要更灵活的类型定义，例如函数类型、联合类型、交叉类型等。
+
+## 如何实现`页面切换`
+
+```jsx
+// SearchPage.tsx  
+useEffect(() => {
+    if (keywords) {
+      dispatch(searchProduct({ keywords, nextPage: 1, pageSize: 10 }));
+    }
+  }, [location]);
+  // 表示只有url变了才会重新获取数据，因为keyword在url中🔴
+
+  // 同一个keywords 要显示下一页数据
+  const onPageChange = (nextPage, pageSize) => {
+    if (keywords) {
+      dispatch(searchProduct({ nextPage, pageSize, keywords }));
+    }
+  };
+```
+
+在你的代码中，`onPageChange` 函数接收两个参数 `nextPage` 和 `pageSize`，它们应该是由 `ProductList` 组件通过分页功能传递过来的。
+
+#### `onPageChange` 参数来源
+
+通常情况下，分页功能会在列表组件中实现，类似于 `ProductList` 这样的组件。它可能包含分页控件，比如 `antd` 的 `Pagination` 组件或者你自定义的分页逻辑。`Pagination` 组件会在用户点击下一页或选择页面大小时自动传递 `nextPage`（下一页的页码）和 `pageSize`（每页显示的产品数量）给 `onPageChange`。
+
+例如，如果 `ProductList` 使用了 `antd` 的 `Pagination`，它可能看起来像这样：
+
+```tsx
+import { Pagination } from "antd";
+
+export const ProductList: React.FC<{ data, paging, onPageChange }> = ({
+  data,
+  paging,
+  onPageChange,
+}) => {
+  return (
+    <div>
+      {/* 显示产品列表 */}
+      {data.map((product) => (
+        <div key={product.id}>{product.name}</div>
+      ))}
+
+      {/* 分页控件 */}
+      <Pagination
+        current={paging.currentPage}
+        total={paging.totalCount}
+        pageSize={paging.pageSize}
+        onChange={onPageChange}  // 当页码变化时调用 onPageChange
+      />
+    </div>
+  );
+};
+```
+
+在这种情况下，`Pagination` 组件会自动传递 `currentPage`（即 `nextPage`）和 `pageSize` 给 `onPageChange` 函数。当用户更改页码时，它会触发 `onPageChange(nextPage, pageSize)`，然后调用 `dispatch(searchProduct({ nextPage, pageSize, keywords }))` 以获取新页的数据。
+
+#### 具体步骤
+1. 用户在 `ProductList` 中使用分页控件更改页码或页面大小。
+2. 分页控件会触发 `onPageChange`，传递 `nextPage` 和 `pageSize` 作为参数。
+3. `onPageChange` 函数调用 `dispatch`，通过 `searchProduct` 获取新的分页数据。
+
+因此，`nextPage` 和 `pageSize` 是由 `ProductList` 中的分页控件根据用户操作传递的。
+
+
+
+## `搜索页面`的实现
+
+1. 路由配置
+
+```jsx
+<Route path="/search/">
+  <Route path=":keywords" element={<SearchPage />}></Route>
+  <Route path="" element={<SearchPage />}></Route>
+</Route>
+```
+
+2. 获取路由传递的参数
+
+```jsx
+const { keywords } = useParams<MatchParams>();
+```
+
+3. 发送异步请求
+
+   location 表示只有url变了才会重新获取数据，因为keyword在url中
+
+```jsx
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  useEffect(() => {
+    if (keywords) {
+      dispatch(searchProduct({ keywords, nextPage: 1, pageSize: 10 }));
+    }
+  }, [location]);
+```
+
+4. Header组件配置
+
+```jsx
+<Input.Search
+	// 新添加以下代码
+  onSearch={(keyword) => navigate("/search/" + keyword)}
+  />
+```
+
+## HTTP状态码
+
+一个三位数字的状态码和一个字符串格式状态消息组成
+
+![image-20240902183236690](imgFiles/image-20240902183236690.png)
+
+![image-20240902183318597](imgFiles/image-20240902183318597.png)

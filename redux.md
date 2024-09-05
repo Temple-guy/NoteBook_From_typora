@@ -1,10 +1,19 @@
-# Redux
+# Redux ToolKit
+
+完整初学请看react那一部分的react toolkit
 
 - state -- Redux Toolkit  --> store +（hooks）
 - Reducer -- Redux Toolkit --> slice
 - Action -- Redux-Thunk --> thunk(function)
 
 ==思维导图== [markmap.html](思维导图/markmap.html) 
+
+## 安装工作
+
+```jsx
+npm install @reduxjs/toolkit react-redux
+npm install redux-thunk
+```
 
 ## Redux-Toolkit 同步与异步的区别
 
@@ -206,6 +215,12 @@ var asyncSayActionCreator = function (message) {
 
 而这个时候就可以**使用Redux-Thunk 实现异步操作，再创建action**。
 
+> 补充讲解：你像*API的请求*在使用Redux-Thunk后也被*放在了store.ts文件中*，这也是一大改变。*我们为什么要这么做呢？*
+>
+> **减少重复代码**：因为当我们多个页面都需要获取同意API的数据 ，如果我们直接在各个组件的ComponentDidMount 又或是 useEffect中进行axios,这无疑会导致大量的代码重复，如果放在store中就避免了此情况的发生。
+>
+> **数据共享**: 当不同组件需要相同的数据时，可以从 Redux store 中获取，而不需要每个组件都发起独立的 API 请求。这不仅节省了网络带宽，还可以确保组件间的数据一致性。
+
 ### 什么是Redux-Thunk?
 
 - 是一个redux中间件, 用于处理异步操作 (logic effect)。它是包含在Redux中的一个部分。它的核心就是`middleware`和`Thunk函数`。
@@ -216,7 +231,7 @@ var asyncSayActionCreator = function (message) {
 
 - 作用：Redux 中的中间件是在 `dispatch` 和 `reducer` 之间的一个层，它能够拦截或修改 `dispatch` 的行为。
 
-- 用法：在stroe中注入middleware
+- 用法：redux thunk 已经自动注入了，如需使用自定义的middleware，则需要在stroe中注入middleware
 
   ```jsx
   const store = configureStore({
@@ -265,11 +280,102 @@ var asyncSayActionCreator = function (message) {
   >
   >    - 当`store.dispath(action)`，它会通过`next(action)`将其传递给`reducer`，而如果有多个middleware，它会传递给下一个middleware
 
+##### 拆解柯里化
+
+```jsx
+const middleware = (store) => next => (action) =>{}
+```
+
+```jsx
+const thunkMiddleware = function({ dispatch, getState }) {
+  return function(next) {
+    return function(action) {
+      // 如果 action 是一个函数，调用它并传递 dispatch 和 getState
+      if (typeof action === 'function') {
+        return action(dispatch, getState);
+      }
+
+      // 如果 action 不是函数，直接传递给下一个 middleware 或 reducer
+      return next(action);
+    };
+  };
+};
+```
+
+```jsx
+thunkMiddleware(thunk/action) {
+  return functionReturn1
+}
+const functionReturn1 = function(next) {
+  return functionRetun2;
+}
+const functionReturn2 = function(action) {
+  if(action is a function) call action
+  if(action is a action) pass the action to the reducer(or pass to the next middleware, if there are mutiple middlewares) 
+}
+```
+
+##### 多个middleware的使用
+
+假设你有三个 middleware：`loggerMiddleware`、`thunkMiddleware` 和 `errorMiddleware`。配置顺序如下：
+
+```jsx
+const store = createStore(
+  rootReducer,
+  applyMiddleware(loggerMiddleware, thunkMiddleware, errorMiddleware)
+);
+```
+
+```jsx
+const loggerMiddleware = store => next => action => {
+  console.log('Logging action:', action);
+  return next(action); // 传递给下一个 middleware
+};
+
+const thunkMiddleware = ({ dispatch, getState }) => next => action => {
+  if (typeof action === 'function') {
+    return action(dispatch, getState);
+  }
+  return next(action); // 传递给下一个 middleware 或 reducer
+};
+
+const errorMiddleware = store => next => action => {
+  try {
+    return next(action); // 传递给 reducer
+  } catch (err) {
+    console.error('Caught an exception!', err);
+  }
+};
+
+```
+
+#### 自定义中间件actionLog
+
+自定义中间件名为 actionLog ,类型是Middleware
+
+```jsx
+// redux/middlewares/actionLog.ts
+import { Middleware } from "redux";
+
+export const actionLog: Middleware = (store) => (next) => (action) => {
+  console.log("state 当前", store.getState());
+  console.log("fire action ", action);
+  next(action); // 分发action
+  console.log("state 更新", store.getState());
+};
+```
+
 #### **Thunk 函数**
 
 - 允许你在 action creators 中返回一个函数，而不是一个普通的 action 对象。这个返回的函数可以包含异步逻辑（如网络请求）。
 
 使用`createAsyncThunk`创建`thunk函数`，通常用于`执行异步逻辑`
+
+> 关于`"recommendProducts/getRecommendProducts"`是什么玩意？
+>
+> 这是 `createAsyncThunk` 生成的 action type。它的格式是 `"sliceName/thunkName"`，其中 `"sliceName"` 是 slice 的 `name`，而 `"thunkName"` 是你在 `createAsyncThunk` 中定义的操作名称。
+>
+> <img src="imgFiles/image-20240902144100374.png" alt="image-20240902144100374" style="zoom:33%;" />
 
 ```jsx
 export const getRecommendProducts = createAsyncThunk(
@@ -323,76 +429,13 @@ export const getRecommendProducts = createAsyncThunk(
 >        - `rejectWithValue(value)`: 用于在异步操作失败时返回一个自定义的错误值。
 >        - `signal`: 如果使用了 AbortController 进行请求取消，这里可以访问请求的信号。
 
-拆解柯里化
-
-```jsx
-const thunkMiddleware = function({ dispatch, getState }) {
-  return function(next) {
-    return function(action) {
-      // 如果 action 是一个函数，调用它并传递 dispatch 和 getState
-      if (typeof action === 'function') {
-        return action(dispatch, getState);
-      }
-
-      // 如果 action 不是函数，直接传递给下一个 middleware 或 reducer
-      return next(action);
-    };
-  };
-};
-```
-
-
-
-```jsx
-thunkMiddleware(thunk/action) {
-  return functionReturn1
-}
-const functionReturn1 = function(next) {
-  return functionRetun2;
-}
-const functionReturn2 = function(action) {
-  if(action is a function) call action
-  if(action is a action) pass the action to the reducer(or pass to the next middleware, if there are mutiple middlewares) 
-}
-```
-
-假设你有三个 middleware：`loggerMiddleware`、`thunkMiddleware` 和 `errorMiddleware`。配置顺序如下：
-
-```jsx
-const store = createStore(
-  rootReducer,
-  applyMiddleware(loggerMiddleware, thunkMiddleware, errorMiddleware)
-);
-```
-
-```jsx
-const loggerMiddleware = store => next => action => {
-  console.log('Logging action:', action);
-  return next(action); // 传递给下一个 middleware
-};
-
-const thunkMiddleware = ({ dispatch, getState }) => next => action => {
-  if (typeof action === 'function') {
-    return action(dispatch, getState);
-  }
-  return next(action); // 传递给下一个 middleware 或 reducer
-};
-
-const errorMiddleware = store => next => action => {
-  try {
-    return next(action); // 传递给 reducer
-  } catch (err) {
-    console.error('Caught an exception!', err);
-  }
-};
-
-```
-
 ## Redux-Toolkit(异步)
+
+![image-20240901190531073](imgFiles/image-20240901190531073.png)
 
 **Redux Toolkit** 是 Redux 的官方工具库，旨在简化 Redux 的使用。
 
-主要由以下三部分构成
+异步处理 主要由以下三部分构成
 
 - store
 - hooks
@@ -618,6 +661,8 @@ export default productDetailSlice.reducer;
        giveMeData: () => {
          dispatch(getRecommendProducts()); 
        },
+       ...
+       //可以有多个
      };
    };
    ```
@@ -637,14 +682,12 @@ export default productDetailSlice.reducer;
    ```jsx
    import { useSelector, useAppDispatch } from "../../redux/hooks";
    
-   // 获取state中的属性
-   const loading = useSelector((state) => state.productDetail.loading);
-   const error = useSelector((state) => state.productDetail.error);
-   const product = useSelector((state) => state.productDetail.data);
+   // 利用解构赋值获取state中的属性
+   const {loading , error, product} = useSelector((state) => state.productDetail);
    // 获取dispatch函数
    const dispatch = useAppDispatch();
    ```
-
+   
 2. 在`useEffect`中获取数据据
 
    ```tsx
@@ -654,6 +697,70 @@ export default productDetailSlice.reducer;
        }
      }, [touristRouteId, dispatch]);
    ```
+
+### 异步请求的几种状态
+
+**Pending (加载中)**: 当请求发出但尚未完成时，显示加载状态。
+
+**Fulfilled (成功)**: 请求成功完成并返回数据时，显示数据。
+
+**Rejected (失败)**: 请求失败时，显示错误信息。
+
+在redux devTool 中进行查看
+
+![image-20240901175849013](imgFiles/image-20240901175849013.png)
+
+## 关于action.payload
+
+`action.payload` 是 Redux action 对象中的一个属性。它用于存储需要传递给 reducer 的数据或信息。
+
+`payload` 可以是任何类型的数据，例如字符串、对象、数组或其他复杂数据结构。
+
+1. 在异步获取数据中的使用
+
+```jsx
+extraReducers: (builder) => {
+  builder
+    .addCase(fetchUser.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(fetchUser.fulfilled, (state, action) => {
+      state.loading = false;
+      state.user = action.payload; // 将 payload 数据（用户数据）存储到 state 中
+    })
+    .addCase(fetchUser.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload; // 将 payload 数据（错误信息）存储到 state 中
+    });
+}
+```
+
+2. 同步reducer中更新数据
+
+```jsx
+export const changeLanguageSlice = createSlice({
+  name: "changeLanguage",
+  initialState,
+  reducers: {
+    changeLanguage: (state, action: PayloadAction<"en" | "zh">) => {
+      i18n.changeLanguage(action.payload);
+      state.language = action.payload; // 直接修改 state
+    },
+  },
+});
+```
+
+## 关于propsTypes
+
+这样在ts中就会有提示
+
+```jsx
+type PropsType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+class HomePageComponent extends React.Component<PropsType> {
+	...
+  }
+```
 
 ## 在哪里进行dispatch
 
