@@ -3102,7 +3102,7 @@ const 变量名 = /表达式/
 
 `test()方法 `用来查看正则表达式与指定的字符串是否匹配
 
-`exec() 方法`在一个指定字符串中执行一个搜索匹配
+使用一个循环或 `match` 方法来获得所有匹配项
 
 ```html
 <script>
@@ -3112,8 +3112,11 @@ const 变量名 = /表达式/
   const reg = /good/;
   //   2. 是否匹配 返回布尔值
   console.log(reg.test(str));
-  //   exec 返回的是一个数组
-  console.log(reg.exec(str));
+  // 	 3. 获取所有匹配项 返回的是一个数组
+  let str = "JavaScript is amazing";
+  let matches = str.match(/a/g); // 获取所有匹配的 "a"
+  let count = matches ? matches.length : 0; // 如果没有匹配，返回 0
+  console.log(count); // 输出: 3
 </script>
 ```
 

@@ -1023,10 +1023,10 @@ Star.prototype = {
 
 #### 问题抛出
 
-> 在使用protoytpe 赋值时，会发现对任意一个使用该属性的构造函数单独添加方法/属性，其余的构造函数也会自动添加，因为他们的prototye均指向同一个Person
+> 在使用protoytpe 赋值时，会发现对任意一个使用该属性的构造函数单独添加方法/属性，其余的构造函数也会自动添加，因为他们的prototye均指向同一个People
 
 ```js
-const Person = {
+const People = {
   eyes: 2,
   head: 1,
 };
@@ -1063,9 +1063,11 @@ Woman.prototype = new Person();
 Man.prototype = new Person();
 ```
 
-
-
 ### 原型链 prototype chain
+
+**每个构造函数都有prototype属性 原型对象**
+
+**每个对象都有_proto 对象原型**
 
 ![image-20240725151250249](imgFiles/image-20240725151250249.png)
 
